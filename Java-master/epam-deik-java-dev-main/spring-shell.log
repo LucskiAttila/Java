@@ -1,0 +1,840 @@
+1621368760766:help
+1621368851478:exit
+1621369173231:help
+1621369226203:list movies
+1621369247412:stacktrace list movies
+1621369418769:exit
+1621369459133:list movies
+1621369526905:exit
+1621369559180:list movies
+1621370155876:list rooms
+1621370164495:sign in privigled admin admin
+1621370193022:sign in privigled 'admin' 'admin'
+1621370206195:help
+1621370221532:sign in privigled
+1621370244094:spign in privigled --password admin
+1621370307499:sign out
+1621370311491:ssssssss
+1621370319115:exit
+1621370816715:list movies
+1621376668918:create movie
+1621376706896:create movie Sátántangó drama 450
+1621376749661:exit
+1621378493373:delete movie 1
+1621378502609:list movies
+1621378505267:exit
+1621381566174:list movies
+1621381574107:delete movie
+1621381588883:delete s
+1621381602707:delete movie s
+1621381619229:stacktrace delete movie s
+1621381667690:exit
+1621383473496:delete movie s
+1621383495952:exit
+1621384087883:list movies
+1621384125059:create movie Cim dram 123
+1621384136593:delete movie s
+1621384139713:exit
+1621386487637:list movie
+1621386493944:help
+1621386500945:list movies
+1621386506945:exit
+1621418612314:sign in privileged s s
+1621418624358:sign in privileged admin admin
+1621418670158:sign in privileged "admin" "admin"
+1621418812665:sign in privileged ""admin"" ""admin""
+1621418892919:exit
+1621419113227:sign in privileged admin admin
+1621419235534:exit
+1621419288234:sign in privileged admin admin
+1621419301115:exit
+1621419331226:sign in privileged admin admin
+1621419374468:exit
+1621419404821:sign in privileged admin admin
+1621419441455:exit
+1621419481223:sign in privileged admin admin
+1621419508909:list movies
+1621419516372:create movie s s 1
+1621419566685:delete 1
+1621419571939:delete movie s
+1621419576210:sign out
+1621419578937:exitr
+1621419580801:exit
+1621419734318:sign in privileged admin admin
+1621419738793:create s s 1
+1621419749344:create movie s s 1
+1621419836200:exit
+1621419856114:sign in privileged admin admin
+1621419862102:create movie s s 1
+1621419889744:list movies
+1621419911976:update movie s drame 2
+1621420062476:list movies
+1621420376434:exit
+1621420411561:sign in privileged admin admin
+1621420422780:list movies
+1621420453707:create movie "Sprited Away" animation 125
+1621420468358:list movies
+1621420640547:update "Sprited Away" drama 12
+1621420655298:update movie "Sprited Away" drame 12
+1621420659007:list movies
+1621420668166:create movie s s 1
+1621420671932:list movies
+1621420676276:delete movie s
+1621420679268:list movies
+1621420682116:exit
+1621420733440:sign in privileged admin admin
+1621420739379:create movie s s 1
+1621420742042:list movies
+1621420747136:exit
+1621421426470:sign out
+1621421436027:sign in privileged admin admin
+1621421441575:sign out
+1621421453230:create movie s s1
+1621421461876:create movie s s 1
+1621421469985:exit
+1621422437124:sign in privileged admin admin
+1621422442141:describe account
+1621422452219:sign out
+1621422453963:exit
+1621426049160:sign in privigeled admin admin
+1621426068322:sign in privileged admin admin
+1621426075398:create room r 2 2
+1621426093668:update room 2 2
+1621426122152:update room r 2 2
+1621426132749:update room s 2 2
+1621426173424:exit
+1621427378278:sign in privileged admin admin
+1621427386610:list rooms
+1621427399448:create room Szoba1 10 10
+1621427414743:create room Szoba2 10 20
+1621427418532:list movies
+1621427426010:list rooms
+1621427458469:update room Szoba1 20 10
+1621427461779:list rooms
+1621427469603:delete Szoba1
+1621427479753:delete room Szoba1
+1621427483335:list rooms
+1621427488606:delete room Szoba2
+1621427491789:list rooms
+1621427494725:sign out
+1621427503796:describe account
+1621427506666:exit
+1621431945146:create screening s a 12
+1621431984446:create screen s a 1
+1621432001621:sign in privileged admin admin
+1621432016426:create movie Title drama 23
+1621432032961:create room RoomName 25 4
+1621432046959:create screen Title RoomName 4
+1621432078231:exit
+1621432147713:sign in privileged admin admin
+1621432160516:create room RoomName 25 4
+1621432174004:create movie Title drame 12
+1621432184632:screate screening Title RoomName 3
+1621432202591:create screening Title RoomName 3
+1621432233099:create screening Title RoomName "2021-03-14 16:00"
+1621433360449:sing in privileged admin admin
+1621433371229:sign in privileged admin admin
+1621433382316:create room Room 25 4
+1621433392723:create movie Title drama 120
+1621433417646:create screening Title Room "2021-03-14 16:00"
+1621433468432:stacktrace create screening Title Room "2021-03-14 16:00"
+1621433658231:exit
+1621433693207:sign in privileged admin admin
+1621433703505:create room Room 25 4
+1621433715935:create movie Movie 120
+1621433736220:create movie Movie drama 120
+1621433770753:create Movie Room "2021-03-14 16:00"
+1621433784989:create screening Movie Room "2021-03-14 16:00"
+1621433797051:stacktrace create screening Movie Room "2021-03-14 16:00"
+1621434021292:exit
+1621434050834:sign in privileged admin admin
+1621434057646:creare movie Movie 24 5
+1621434065981:create movie Movie 24 5
+1621434078962:create room Room drama 120
+1621434102141:create Room 120
+1621434109022:create room Room 120
+1621434121939:create Room 24 5
+1621434128386:create room Room 24 5
+1621434154832:create screening Movie Room "2021-03-14 16:00"
+1621434169807:stacktrace create screening Movie Room "2021-03-14 16:00"
+1621434248112:exit
+1621434291175:sign in privileged admin admin
+1621434301010:create room Room 24 5
+1621434309127:create movie Movie drama 120
+1621434341045:create screening Room Movie "2021-03-14 16:00"
+1621434367274:create screening Movie Room "2021-03-14 16:00"
+1621434632605:sing in privileged admin admin
+1621434640352:sign in privileged admin admin
+1621434647782:create room Room 25 4
+1621434656447:create movie Movie drame 120
+1621434692499:create screening Movie Room "2021-02-12 16:00"
+1621434771412:sign in privileged admin admin
+1621434777832:create room Room 25 4
+1621434788470:create movie Movie drama 10
+1621434826475:create screening Movie Room "2021-02-12 12:10"
+1621434920842:sign in privileged admin admin
+1621434938003:create room Room 15 4
+1621434950353:create movie Movie 120
+1621434963983:create movie Movie drama 120
+1621434986662:create screening Movie Room "2021-12-12 12:12"
+1621436048331:sign in privileged admin admin
+1621436058516:create room Room 25 4
+1621436064035:create movie Movie 120
+1621436074147:create movie Movie drama 120
+1621436097464:create screening Movie Room "2021-03-03 03:03"
+1621436220495:create screening Movie Room "2021-03-03 16:00"
+1621436433997:sign in privileged admin admin
+1621436443647:create room Room 25 4
+1621436449846:create movie Movie 120
+1621436458606:create movie Movie drama 120
+1621436478094:create screening Movie Room "2021-03-12 12:12"
+1621436745241:sign in privileged admin admin
+1621436750860:create room Room 25 4
+1621436761010:create movie Movie drama 120
+1621436781761:create screening Movie Room "2010-12-12 12:12"
+1621436831955:stacktrace create screening Movie Room "2010-12-12 12:12"
+1621437039853:exit
+1621437081725:sign in privileged admin admin
+1621437089198:create room Room 25 25
+1621437096653:create Movie drama 23
+1621437113547:create movie Movie drma 1
+1621437132201:create screening Movie Room "2012-12-12 12:12"
+1621437167176:list screenings
+1621437238239:exit
+1621439854057:sign in privileged admin admin
+1621439868067:create movie Movie drama 25
+1621439880265:create room Room 25 25
+1621439887591:list screening
+1621439900197:list screenings
+1621439927817:create screening Movie Room "2021-12-12 12:12"
+1621439943150:create screening Room Movie "2021-12-12 12:12"
+1621439948262:create screening Movie Room "2021-12-12 12:12"
+1621439957949:stacktrace create screening Movie Room "2021-12-12 12:12"
+1621440062263:exit
+1621440093392:sign in privileged admin admin
+1621440104002:create room Room 25 25
+1621440121903:create movie Movie drama 120
+1621440140350:create screening Movie Room "2021-21-21 21:21"
+1621440149934:stacktrace create screening Movie Room "2021-21-21 21:21"
+1621440163911:exit
+1621440382333:sign in privileged admin admin
+1621440391401:create room Room 25 25
+1621440399734:create movie Movie drama 120
+1621440417095:create screening Movie Room "2021-11-12 12:12"
+1621440460944:stacktrace create screening Movie Room "2021-11-12 12:12"
+1621440707724:exit
+1621440746123:sign in privileged admin admin
+1621440754606:create room Room 25 25
+1621440772979:create movie Movie drama 201
+1621440802631:create screening Movie Room "2021-12-12 16:12"
+1621440886783:sign in privileged admin admin
+1621440894746:create movie Movie drama 24
+1621440902934:create room Room 25 25
+1621440918558:create screening Movie Room "2021-12-12 16:00"
+1621441359445:exit
+1621441394356:sign in privileged admin admin
+1621441403398:create room Room 25 25
+1621441412101:create movie Movie drama 20
+1621441445627:create screening Movie Room "2012-12-12 12:12"
+1621441545237:exit
+1621441575357:sign in privileged admin admin
+1621441582665:create room Room 25 25
+1621441594943:create movie Movie drama 23
+1621441612029:create screening Movie Room "2021-11-11 11:11"
+1621441700841:stacktrace create screening Movie Room "2021-11-11 11:11"
+1621441975134:sign in privileged admin admin
+1621441982307:create room Room 25 25
+1621441989265:create movie Movie drama 25
+1621442005543:create screening Movie Room "2021-12-12 12:12"
+1621442103640:stacktrace create screening Movie Room "2021-12-12 12:12"
+1621442109180:exit
+1621442205938:sign privileged admin admin
+1621442233537:sign in privileged admin admin
+1621442240464:create room Room 25 25
+1621442252149:create movie Movie dram 23
+1621442274308:create screening Movie Room "2123-12-12 12:12"
+1621442970036:sign in privileged admin admin
+1621442982165:create movie Movie drama 24
+1621442989011:create room Room 23 23
+1621443009058:create screening Movie Room "2121-12-12 12:12"
+1621443507681:exit
+1621445275740:sign in privileged admin admin
+1621445289018:create movie Movie drama 25
+1621445298295:create room Room 25 25
+1621445316742:create screening Movie Room "2101-12-12 12:12"
+1621445437005:sign in privileged admin admin
+1621445443290:create room Room 25 25
+1621445449423:create movie Movie drama 25
+1621445470237:create screening Movie Room "2312-12-12 12:12"
+1621445513133:list movies
+1621445668150:delete Movie Room "2312-12-12 12:12"
+1621445690348:delete screening Movie Room "2312-12-12 12:12"
+1621445733961:delete screen Movie Room "2312-12-12 12:12"
+1621445742197:list movies
+1621445793651:list screening
+1621445820741:list screenings
+1621445842357:create screening Movie Room "2312-12-12 12:12"
+1621445847833:list screenings
+1621445875441:list rooms
+1621445880447:list movies
+1621445918077:exit
+1621446035579:sign in privileged admin admin
+1621446044978:create movie Movie drama 25
+1621446051098:create room Room 25 25
+1621446084388:create screening Movie Room "2012-21-21 16:00"
+1621446093152:list screenings
+1621446101352:delete screening Movie Room "2012-21-21 16:00"
+1621446105126:list screening
+1621446110693:list screenings
+1621446116963:delete room Room
+1621446121562:list rooms
+1621446126466:delete movie Moive
+1621446129249:list movies
+1621446145895:delete movie Movie
+1621446149125:list movies
+1621446152452:sign out
+1621446162251:create movie Movie l 2
+1621446165930:exit
+1621446306374:sign in privileged admin admin
+1621446314586:create room Room 25 25
+1621446327295:create movie Movie darmam 34
+1621446352678:create screening Movie Room "2012-12-12 1:22"
+1621446363515:create screening Movie Room "2012-12-12 01:22"
+1621446372416:create screening Movie Room "2012-12-12 01:222"
+1621446377308:cls
+1621446394637:create screening Movie Room "2012-12-12 01:23"
+1621446415306:create screening Movie Room "2012-12-12 01:55"
+1621446419449:create screening Movie Room "2012-12-12 01:56"
+1621446478055:create screening Movie Room "2012-12-12 01:57"
+1621446482493:create screening Movie Room "2012-12-12 01:56"
+1621446506474:create screening Movie Room "2012-12-12 01:66"
+1621446511865:create screening Movie Room "2012-12-12 01:65"
+1621446532833:create room Room1 24 24
+1621446541532:create screening Movie Room1 "2012-12-12 01:65"
+1621446548538:create screening Movie Room "2012-12-12 01:22"
+1621446563991:create screening Movie Room "2012-12-12 01:23"
+1621446701952:exit
+1621446887043:sign in privileged admin admin
+1621446895655:create room Room 25 25
+1621446906356:create movie Movie drama 5
+1621446927651:create screening Movie Room "2020-12-12 12:00"
+1621446941665:create screening Movie Room "2020-12-12 12:05"
+1621446946881:create screening Movie Room "2020-12-12 12:04"
+1621446953327:create screening Movie Room "2020-12-12 12:15"
+1621446962293:create screening Movie Room "2020-12-12 12:10"
+1621446989369:create screening Movie Room "2020-12-12 12:05"
+1621447014653:create screening Movie Room "2020-12-12 12:15"
+1621447020419:create screening Movie Room "2020-12-12 12:14"
+1621447032825:create screening Movie Room "2020-12-12 12:10"
+1621447062667:create room Room1 25 25
+1621447067076:create screening Movie Room1 "2020-12-12 12:00"
+1621447078400:create screening Movie Room1 "2020-12-12 12:01"
+1621447095110:create screening Movie Room1 "2020-12-10 12:12"
+1621447107684:create screening Movie Room "2020-12-12 12:00"
+1621447111515:create screening Movie Room1 "2020-12-12 12:00"
+1621447147701:create movie Movie1 s 2
+1621447153685:create screening Movie1 Room1 "2020-12-12 12:00"
+1621447159747:create screening Movie1 Room "2020-12-12 12:00"
+1621447173736:create screening Movie1 Room "2020-12-12 11:00"
+1621447225696:stacktrace create screening Movie1 Room "2020-12-12 11:00"
+1621447262505:exit
+1621447893148:sign in priviliged admin admin
+1621447934180:help
+1621447948836:sign in priviliegd admin admin
+1621447967048:sign in privileged admin admin
+1621447978973:create room Room 24 25
+1621447985411:create Movie d 10
+1621447993596:create movie Movie d 10
+1621448010749:create screening Movie Room "2012-12-12 12:00"
+1621448032905:create screening Movie Room "2012-12-12 12:10"
+1621448039894:create screening Movie Room "2012-12-12 12:09"
+1621448066781:create screening Movie Room "2012-12-12 12:00"
+1621448075081:create screening Movie Room "2012-12-12 11:59"
+1621448084440:create screening Movie Room "2012-12-12 12:11"
+1621448087977:create screening Movie Room "2012-12-12 12:20"
+1621448098549:exit
+1621448187139:sign in privileged admin admin
+1621448194492:create movie Movie 25
+1621448203010:create movie Movie d 25
+1621448210713:create room Room 25 25
+1621448225866:create screening Movie Room "2021-12-12 12:12"
+1621448234959:create screening Movie Room "2021-12-12 12:37"
+1621448300820:create screening Movie Room "2021-12-12 12:11"
+1621448310403:create screening Movie Room "2021-12-12 12:10"
+1621448325055:create screening Movie Room "2021-12-12 12:00"
+1621448341780:list screenings
+1621448371441:create screening Movie Room "2021-12-12 12:36"
+1621448386998:create screening Movie Room "2021-12-12 10:12"
+1621448400909:create screening Movie Room "2021-12-12 10:11"
+1621448414314:list screening
+1621448419959:list sceenings
+1621448447251:list screenings
+1621448490683:create screening Movie Room "2021-12-12 23:11"
+1621448497834:list screenings
+1621448508856:create screening Movie Room "2021-12-12 25:11"
+1621448513421:list screenings
+1621448555208:create screening Movie Room "2021-25-12 10:11"
+1621448566501:create screening Movie Room "2021-125-12 50:11"
+1621448577732:create screening Movie Room "2021-32-12 15:11"
+1621448585585:list screenings
+1621450146049:exit
+1621450612531:sign in privileged admin admin
+1621450626361:create room Room 25 25
+1621450643224:create movie Movie drama 25
+1621450671228:create screening Movie Room "2021-12-12 12:05"
+1621450682505:create screening Movie Room "2021-12-12 12:04"
+1621450689688:create screening Movie Room "2021-12-12 12:00"
+1621450703839:create screening Movie Room "2021-12-12 12:30"
+1621450707622:create screening Movie Room "2021-12-12 12:31"
+1621450720812:create screening Movie Room "2021-12-12 12:40"
+1621450729071:exit
+1621451829606:sign in privigeled admin admin
+1621451839567:sign in privigled admi admin
+1621451842899:help
+1621451863924:sign in privileged admin admin
+1621451871521:create room Room 25 25
+1621451878816:create movie Movie d 25
+1621451904156:create screenign Movie Room "2010-01-01 10:30"
+1621451941843:create screening Movie Room "2010-01-01 10:30"
+1621451957164:list screenings
+1621452037244:create screening Movie Room "2010-01-01 10:55"
+1621452047153:create screening Movie Room "2010-01-01 10:65"
+1621452065727:create screening Movie Room "2010-13-01 55:30"
+1621452429074:exit
+1621452696713:help
+1621452721882:sign in privileged admin admin
+1621452730618:create movie Movie d 25
+1621452737887:create room Room 25 25
+1621452767949:create screening Movie Room "2012-20-12 16:00"
+1621452775577:list screenings
+1621452804841:create screening Movie Room "2012-12-12 16:00"
+1621452827106:list screenings
+1621452849756:exit
+1621453490189:sign in privileged admin admin
+1621453496927:create movie Movie d 25
+1621453502917:create room Room 25 25
+1621453526372:create screening Movie Room "2021-15-15 10:00"
+1621453540784:create screening Movie Room "2021-12-15 10:00"
+1621453555212:list screenings
+1621453577818:delete screening Movie Room "2021-15-15 10:00"
+1621453593599:list screenigs
+1621453601869:list screenings
+1621453610262:delete screening Movie Room "2021-15-15 10:00"
+1621453789698:delete screening Movie Room "2021-15-15 10:00:00.0"
+1621453802096:delete screening Movie Room "2021-15-15 10:00"
+1621453812332:list screenings
+1621453935121:create screening Movie Room "2021-12-15 10:00"
+1621453941921:delete screening Movie Room "2021-15-15 10:00"
+1621453944989:help
+1621453963419:delete screening Movie Room "2021-15-15 10:00"
+1621453975647:list screenings
+1621454422710:exit
+1621454478931:sign in privileged admin admin
+1621454489277:create room Room 25 25
+1621454497125:create movie Movie d 25
+1621454524658:create screening Movie Room "2000-10-10 10:10"
+1621454529672:list moveis
+1621454535767:list screeninges
+1621454540581:list screenings
+1621454567589:delete screening Movie Room "2000-10-10 10:10"
+1621454579647:list csreening
+1621454584631:list screenings
+1621454588518:exit
+1621455546159:describe
+1621455550170:help
+1621455560050:sign in privileged admin admin
+1621455563112:sign out
+1621455566390:exit
+1621456772846:sign up user user
+1621456779239:sgn up user user
+1621456789190:sign up user user
+1621456791244:exit
+1621458755640:sign up admin admin
+1621458767451:sign up s s
+1621458775106:sign in s s
+1621458795599:sign out
+1621458800501:exit
+1621459106461:sign up admin admin
+1621459134228:sign in admin admin
+1621459144836:sign up s s
+1621459150514:sign in s s
+1621459157376:sign out
+1621459165662:exit
+1621459434514:sign up admin admin
+1621459445798:sign in privileged admin admin
+1621459599133:sign in admin admin
+1621459604211:sign out
+1621459613067:sign in privileged admin admin
+1621459619984:help
+1621459631760:sign in privileged admin admin
+1621459637488:stacktrace sign in privileged
+1621459779770:exit
+1621459821354:sign in privileged admin admin
+1621459825091:sign out
+1621459830235:sign up admin admin
+1621459837018:sign in privileged admin admin
+1621460205142:exit
+1621460398759:sign up admin admin
+1621460407765:sign in privileged admin admin
+1621460415137:create movie Movie s 2
+1621460420623:delete movie MOvie
+1621460425536:delete moive Movie
+1621460435862:delete movie Movie
+1621460440941:exit
+1621463120268:describe account
+1621463132870:help
+1621463144629:describe account
+1621463255044:exit
+1621463271949:describe account
+1621463783563:sign up a a
+1621463787971:sign in a a
+1621463794129:describe account
+1621463875770:exit
+1621463929747:sign up a a
+1621463932960:sign in a a
+1621463940911:describe account
+1621463955926:stacktrace describe account
+1621464125069:sign up a a
+1621464128530:sign in a a
+1621464135185:describe account
+1621464155192:stacktrace describe account
+1621464436845:sign up a a
+1621464440159:sign in a a
+1621464444800:describe account
+1621464872255:sign in privigled admin admin
+1621464885944:describe account
+1621464888366:help
+1621464899735:sign in privileged admin admin
+1621464905500:describe account
+1621464939679:sign out
+1621464943910:sign up a a
+1621464947174:sign in a a
+1621464952574:describe account
+1621464969874:exit
+1621465769810:sign in privileged admin admin
+1621465774973:describe account
+1621465780651:sign out
+1621465785658:sign up as sa
+1621465792425:sign in as
+1621465798584:sign in as sa
+1621465806152:describe account
+1621465832412:stacktrace describe account
+1621465846623:book
+1621465857037:sign out
+1621465867229:sign in privigiled admin admin
+1621465877716:sign in priviliged admin admin
+1621465882185:help
+1621465893065:sign in privileged admin admin
+1621465905065:create movie Movie 2 2
+1621465914414:create room Room s 2
+1621465926171:create room Room 2 2
+1621465948008:create screening Movie Room "2012-12-12 12:12"
+1621465954812:sign out
+1621465982211:book Movie Room "2012-12-12 12:12"
+1621466010151:book Movie Room "2012-12-12 12:12" "5,5 6,5"
+1621466162082:sign in privileged admin admin
+1621466172043:create room Room 2 2
+1621466179003:create movie Movie n 2
+1621466195100:create screening Movie Room "2012-12-12 12:12"
+1621466198695:sign out
+1621466206622:sign up a s
+1621466211389:sign in a s
+1621466233387:book Movie Room "2012-12-12 12:12" "5,5 6,5"
+1621466432948:sign in privileged admin admin
+1621466440783:create movie Movie n 2
+1621466446766:create room Room 2 2
+1621466464428:create screening Movie Room "2012-12-12 12:12"
+1621466469247:sign out
+1621466473640:sign up a s
+1621466477680:sign in a s
+1621466515557:book Movie Room "2012-12-12 12:12" "1,1"
+1621493064437:sign in privileged admin admin
+1621493075834:create price component name -5
+1621493088408:create price component name --5
+1621493108575:create movie Movie drama 25
+1621493116302:create room Room 25 25
+1621493129705:create screening Movie Room "2012-12-12 12:12"
+1621493146013:describe account
+1621493152419:sign out
+1621493156553:describe account
+1621493165588:sign up a s
+1621493168623:sign in a s
+1621493175022:describe account
+1621493200866:book Movie Room "2012-12-12 12:12"
+1621493203435:exit
+1621502088982:sign in privileged admin admi
+1621502097770:sign in privileged admin admin
+1621502105858:create movie Movie d 25
+1621502111280:create room Room 25 25
+1621502125949:create screening Movie Room "2012-12-12 12:12"
+1621502135953:sign oout
+1621502140981:sign out
+1621502144795:sign up a s
+1621502147453:sign in a s
+1621502183671:show price for Movie Room "2012-12-12 12:12"
+1621502219583:show price for Movie Room "2012-12-12 12:12" "10,5 11,5"
+1621503801001:sign in privileged admin admin
+1621503804890:describe account
+1621503811762:create moive Movie d 25
+1621503820200:create movie Movie d 20
+1621503825876:create room Room 25 25
+1621503838003:create screening Movie Room "2012-12-12 12:12"
+1621503846528:sign out
+1621503850454:describe account
+1621503861043:sign up a s
+1621503863783:sign in a s
+1621503880106:book Movie Room "2012-12-12 12:12"
+1621503900424:book Movie Room "2012-12-12 12:12" "12,2"
+1621504181339:show price for Movie Room "2012-12-12 12:12" "12,1 12,2"
+1621504202026:sign in privileged admin admin
+1621504215361:create movie Movie s 25
+1621504221670:create room Room 25 25
+1621504238591:create screening Movie Room "2012-12-12 12:12"
+1621504256531:book Movie Room "2012-12-12 12:12"
+1621504284093:book Movie Room "2012-12-12 12:12" "12,1 12,2"
+1621504288861:sign out
+1621504292309:sign up a s
+1621504295628:sign in a s
+1621504296177:book Movie Room "2012-12-12 12:12" "12,1 12,2"
+1621504316295:stacktrace book Movie Room "2012-12-12 12:12" "12,1 12,2"
+1621504722637:update room Room 23 23
+1621504797015:stacktrace update room Room 23 23
+1621504943203:sign in privileged admin admin
+1621504948855:create room Room 24 24
+1621504958500:update room Room 21 21
+1621504980628:create movie Movie d 25
+1621504991502:update movie Movie sd 20
+1621505043572:create screening Room Movie "2012-12-12 12:12"
+1621505051084:sign out
+1621505057983:sign up a s
+1621505061778:sign in a s
+1621505089434:book Movie Room "2012-12-12 12:12" "12, 12"
+1621505111730:book Room Movie "2012-12-12 12:12" "12, 12"
+1621505177249:reate screening Movie Room "2012-12-12 12:12"c
+1621505190056:create screening Movie Room "2012-12-12 12:12"
+1621505197202:book Room Movie "2012-12-12 12:12" "12, 12"
+1621505205740:book Movie Room "2012-12-12 12:12" "12, 12"
+1621505225896:book Room Movie "2012-12-12 12:12" "12,2"
+1621505234498:book Movie Room "2012-12-12 12:12" "12,2"
+1621505247316:update room Room 23 23
+1621505298674:exit
+1621505422584:sign up a s
+1621505425430:sign in a s
+1621505433879:create room Room 2 2
+1621505447753:update room Room 2 3
+1621505680403:sign up a s
+1621505687786:sign in a s
+1621505696875:create room Room 2 2
+1621505710596:sign in privileged admin admin
+1621505722074:create movie Movie d 2
+1621505725782:sign out
+1621505732545:sign in privileged admin admin
+1621505738372:create room Room 2 2
+1621505744466:exit
+1621506033482:sign in privileged admin admin
+1621506041825:create room Room 25 25
+1621506047190:create movie Movie d 2
+1621506064107:create screening Movie Room "2012-12-12 12:12"
+1621506093999:book Movie Room "2012-12-12 12:12" "12,2"
+1621506104075:describe account
+1621506110753:sign out
+1621506116264:sign up a s
+1621506119270:sign in a s
+1621506123561:describe account
+1621506126064:book Movie Room "2012-12-12 12:12" "12,2"
+1621506294923:sign in privilegd admin admin
+1621506303044:sign in privileged admin admin
+1621506309219:create room Room 24 24
+1621506318924:create movie Movie d 2
+1621506331622:create screening Movie Room "2012-12-12 12:12"
+1621506336621:sign out
+1621506343392:sign up a s
+1621506346487:sign in a s
+1621506352059:describe account
+1621506365546:book Movie Room "2012-12-12 12:12" "12,2"
+1621506594736:sign up a s
+1621506599972:sign in a s
+1621506604435:describe account
+1621506630311:sign in privileged admin admin
+1621506641358:create room Room 25 25
+1621506645528:sign out
+1621506654812:sign in privilegead admin admin
+1621506660579:sing in privileged admin admin
+1621506668545:sign in privileged admin admin
+1621506675501:create movie Movie d 2
+1621506681433:create room Room 25 25
+1621506698359:create screening Movie Room "2012-12-12 12:12"
+1621506703467:sign out
+1621506706558:sign in a s
+1621506725936:book Movie Room "2012-12-12 12:12" "12,2"
+1621506798683:exit
+1621506897166:sign in privileged admin admin
+1621506903513:create room Room 25 25
+1621506909559:create movie Movie s 2
+1621506920870:create screening Moive Room "2012-12-12 12:12"
+1621506923858:sign out
+1621506926996:sign up a s
+1621506929949:sign in a s
+1621506952263:book Movie Room "2012-12-12 12:12" "12,12"
+1621506963404:sign out
+1621506969793:sign in privileged admin admin
+1621506989043:create screening Movie Room "2012-12-12 12:12"
+1621506991683:sign out
+1621506994793:sign in a s
+1621507008451:book Movie Room "2012-12-12 12:12" "1,1"
+1621507016683:exit
+1621507095232:sign in privileged admin admin
+1621507102576:create movie Movie d 25
+1621507110192:create room Room 25 25
+1621507128922:create screening Movie Room "2012-12-12 12:12"
+1621507131622:sign out
+1621507135719:sign up a s
+1621507138049:sign in a s
+1621507165077:book screening Movie Room "2012-12-12 12:12" "12,1"
+1621507183467:book Movie Room "2012-12-12 12:12" "12,1"
+1621507200327:describe account
+1621507204393:exit
+1621507558207:sign up a s
+1621507563075:singn in a s
+1621507567591:sign in a s
+1621507572469:describe account
+1621507584508:exit
+1621507714014:sign in privileged admin admin
+1621507723782:create movie Movie d 25
+1621507729263:create room Room 25 25
+1621507742433:create screening Movie Room "2012-12-12 12:12"
+1621507747874:sign out
+1621507751219:sign up a s
+1621507754170:sign in a s
+1621507771528:book Movie Room "2012-12-12 12:12" "1,1"
+1621507878283:sign in privileged admin admin
+1621507885106:create movie Movie d 25
+1621507889889:create room Room 25 25
+1621507904871:create screening Movie Room "2012-12-12 12:12"
+1621507907671:sign out
+1621507911512:sign up a s
+1621507914250:sign in a s
+1621507932168:book Movie Room "2012-12-12 12:12" "1,1"
+1621507988548:sign in privileged admin admin
+1621507998094:create movie Movie d 25
+1621508003435:create room Room 25 25
+1621508025359:create screening Movie Room "2012-12-12 12:12"
+1621508030075:sign out
+1621508033095:sign up a s
+1621508035597:sign in a s
+1621508051547:create book Movie Room "2012-12-12 12:12" "1,1"
+1621508059989:book Movie Room "2012-12-12 12:12" "1,1"
+1621508194531:sign in privileged admin admin
+1621508202170:create movie Movie d 25
+1621508209028:create room Room 2 2
+1621508224327:create screeining Movie Room "2012-12-12 12:12"
+1621508239107:create screening Movie Room "2012-12-12 12:12"
+1621508243320:sign out
+1621508247760:sign up a s
+1621508251089:sign in a s
+1621508264970:book Movie Room "2012-12-12 12:12" "1,1"
+1621508642748:sign in privileged admin admin
+1621508650497:create room Room 25 25
+1621508656886:create movie Movie d 25
+1621508673312:create screening Movie Room "2012-12-12 12:12"
+1621508676965:sign out
+1621508681421:sign up a s
+1621508684091:sign in a s
+1621508698626:book Movie Room "2012-12-12 12:12" "1,1"
+1621508728124:describe account
+1621508742687:stacktrace book Movie Room "2012-12-12 12:12" "1,1"
+1621509006750:sign in privileged admin admin
+1621509012185:create room Room 25 25
+1621509017942:create movie Movie d 25
+1621509029937:create screening Movie Room "2012-12-12 12:12"
+1621509032214:sign out
+1621509036310:sign up a s
+1621509039123:sign in a s
+1621509054690:book Movie Room "2012-12-12 12:12" "1,1"
+1621509113952:sign in privileged admin admin
+1621509120043:create movie Movie 25 25
+1621509128607:create room Room 25 25
+1621509148298:create screening Movie Room "2012-12-12 12:12"
+1621509152434:sign out
+1621509157829:sign up a s
+1621509165481:sign in a s
+1621509176547:book Movie Room "2012-12-12 12:12" "1,1"
+1621509202969:stacktrace book Movie Room "2012-12-12 12:12" "1,1"
+1621509336984:describe account
+1621509772450:sign in privileged admin admin
+1621509778984:create movie Movie 25 25
+1621509785006:create room Room 25 25
+1621509796801:create screening Movie Room "2012-12-12 12:12"
+1621509800819:sign out
+1621509805170:sign up a s
+1621509808735:sign in a s
+1621509822998:book Movie Room "2012-12-12 12:12" "1,1"
+1621510021087:exit
+1621527636232:sign in privileged admin admin
+1621527646984:create room Room 25 25
+1621527652287:create movie Movie
+1621527664374:create movie Movie 25
+1621527677339:create movie Movie d 15
+1621527694699:create screening Movie Room "2012-12-12 12:12"
+1621527723487:show price for Movie Room "2012-12-12 12:12" "1,1"
+1621527743737:sign out
+1621527751445:sign up a s
+1621527754651:sign in a s
+1621527772050:book Movie Room "2012-12-12 12:12" "1,1"
+1621527866503:sign in privigle admin admin
+1621527872566:sign in privigeled admin admin
+1621527894082:sign in privileged admin admin
+1621527908353:update base price 2500
+1621527924700:sign out
+1621527933684:sign in privigeled admin admin
+1621527940914:sign in privileged admin admin
+1621527951447:update base price 1500
+1621527963541:update base price 2500
+1621527984722:create price component compo 1000
+1621528221198:attach price component to room compo Room
+1621528256710:attach price component to movie compo Movie
+1621528435141:stacktrace attach price component to movie compo Movie
+1621528491970:sign out
+1621528495258:sign in s a
+1621528520536:show price for Movie Room "2012-12-12 12:12" "1,1 2,2"
+1621528526691:exit
+1621528644823:sign in privigeled admin admin
+1621528674687:sign in privigled admin admin
+1621528678035:help
+1621528690876:sign in privileged admin admin
+1621528702303:create room Room 25 25
+1621528709382:create movie Movie d 2
+1621528727491:create screening Movie Room "2012-12-12 12:12"
+1621528742119:update base price 2500
+1621528769130:update base price 2100
+1621528781281:stacktrace update base price
+1621528863579:sign out
+1621528905224:show price for Movie Room "2012-12-12 12:12" "1,1 2,2"
+1621528924738:sign in privileged admin admin
+1621528945070:book Movie Room "2012-12-12 12:12" "1,1 2,2"
+1621528980004:sign out
+1621528983900:sign up a s
+1621528986844:sign in a s
+1621528988061:book Movie Room "2012-12-12 12:12" "1,1 2,2"
+1621528991267:exit
+1621529694560:sign in priviliged admin admin
+1621529703727:sign in privileged admin admin
+1621529716994:help
+1621529755878:sign in privileged admin admin
+1621529761314:exit
+1621529838105:sign in privileged admin admin
+1621529845388:create room Room 25 25
+1621529851331:create movie Movie d 25
+1621529905196:create screening Movie Room "2012-12-12 12:12"
+1621529927160:update base price 2500
+1621529946142:create price component comp 100
+1621529956932:attach price component to Room comp
+1621529961641:help
+1621529990101:attach price component to room Room comp
+1621530007987:attach price component to Room comp
+1621530030312:attach price component to comp Room
+1621530047093:attach oruce component to room comp Room
+1621530065209:attach price component to room comp Room
+1621530070326:sign out
+1621530093459:show price for Movie Room "2012-12-12 12:12" "1,1"
+1621530120597:exit
