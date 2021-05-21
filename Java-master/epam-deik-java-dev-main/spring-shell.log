@@ -838,3 +838,33 @@
 1621530070326:sign out
 1621530093459:show price for Movie Room "2012-12-12 12:12" "1,1"
 1621530120597:exit
+1621534956037:sign in privileged admin admin
+1621534968970:create movie Movie d 25
+1621534975730:create room Room 25 25
+1621544709467:exit
+1621548800782:sign in privileged amin admin
+1621548816434:sign in privileged admin admin
+1621548827234:create room Room 252 55
+1621548837038:create movie Movie drama 2
+1621548855515:create screening Movie Room "2012-12-12 12:12"
+1621548878934:create price component comp 300
+1621548891825:attach price component ro room Room comp
+1621548897715:help
+1621548925937:attach price component ro room comp Room
+1621548946293:attach price component to room comp Room
+1621548992688:show price for Room Movie "2012-12-12 12:12"
+1621549005562:show price for Room Movie "2012-12-12 12:12" "1,1"
+1621549016798:show price for Movie Room "2012-12-12 12:12"
+1621549026952:show price for Movie Room "2012-12-12 12:12" "1,1"
+1621549041000:exit
+1621549068171:sign up s a
+1621549072482:sign in s a
+1621549079477:sign out
+1621549086344:sign in privileged admin admin
+1621549094109:create room Room 25 25
+1621549100863:create movie Movie d 25
+1621549115750:create screening Movie Room "2012-12-12 12:12"
+1621549120934:sign out
+1621549123563:sign in s a
+1621549141376:book Movie Room "2012-12-12 12:12" "1,1"
+1621549156965:exit

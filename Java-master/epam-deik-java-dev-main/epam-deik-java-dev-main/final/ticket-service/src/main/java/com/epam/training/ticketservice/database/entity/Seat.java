@@ -7,10 +7,11 @@ import javax.persistence.Id;
 
 @Entity
 public class Seat {
-    private int row_number;
-    private int column_number;
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private int row_number;
+    private int column_number;
 
     public Seat(int row_number, int column_number) {
         this.row_number = row_number;
@@ -40,7 +41,6 @@ public class Seat {
         this.id = id;
     }
 
-    @Id
     public Long getId() {
         return id;
     }

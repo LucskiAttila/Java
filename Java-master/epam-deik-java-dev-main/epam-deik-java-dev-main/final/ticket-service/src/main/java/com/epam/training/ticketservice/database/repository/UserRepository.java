@@ -27,4 +27,5 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     User findByIsSigned(boolean isSigned);
 
+
 }

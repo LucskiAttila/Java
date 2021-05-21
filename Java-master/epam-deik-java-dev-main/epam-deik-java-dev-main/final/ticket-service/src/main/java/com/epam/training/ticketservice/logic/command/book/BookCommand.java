@@ -4,6 +4,7 @@ import com.epam.training.ticketservice.database.entity.*;
 import com.epam.training.ticketservice.database.repository.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,6 +53,7 @@ public class BookCommand {
     private Room room;
     private Screening screening;
 
+    @Transactional
     public String operate(String title, String roomName, String startsDateAndTime, String seats, boolean shouldSave) {
         User user = userRepository.findByIsSigned(true);
         if(!shouldSave && user == null) {

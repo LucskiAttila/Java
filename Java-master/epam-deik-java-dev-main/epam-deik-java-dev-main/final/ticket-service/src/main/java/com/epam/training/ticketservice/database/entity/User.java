@@ -2,6 +2,7 @@ package com.epam.training.ticketservice.database.entity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class User {
@@ -40,5 +41,18 @@ public class User {
     }*/
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(userName, user.userName) && Objects.equals(password, user.password) && Objects.equals(isAdmin, user.isAdmin) && Objects.equals(isSigned, user.isSigned) && Objects.equals(book, user.book);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userName, password, isAdmin, isSigned, book);
     }
 }

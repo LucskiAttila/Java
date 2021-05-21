@@ -21,7 +21,7 @@ public class ListRoomsCommandHandler {
     public String listRooms() {
         List<Room> rooms = listRoomsCommand.operate();
         if(rooms.isEmpty()) {
-            return "There are no movies at the moment";
+            return "There are no rooms at the moment";
         } else {
             StringBuilder result = new StringBuilder();
             for (Room room : rooms) {

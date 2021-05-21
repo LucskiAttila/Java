@@ -23,8 +23,10 @@ public class SignInPrivilegedCommand {
             getAdmin();
             if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
                 List<Book> book = user.getBook();
+                boolean isAdmin = user.getIsAdmin();
+                boolean isSigned = !user.getIsSigned();
                 userRepository.delete(user);
-                userRepository.save(new User(username, password, true, true, book));
+                userRepository.save(new User(username, password, isAdmin, isSigned, book));
                 return "ok";
             }
             else{

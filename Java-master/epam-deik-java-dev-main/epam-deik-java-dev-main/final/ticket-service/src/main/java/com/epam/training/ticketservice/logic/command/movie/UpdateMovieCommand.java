@@ -80,7 +80,7 @@ public class UpdateMovieCommand {
 
     private boolean isConvert(String durationInMinutes) {
         badString = validConvertToInt(durationInMinutes);
-        return !emptyString.equals(badString);
+        return emptyString.equals(badString);
     }
 
     private String validConvertToInt(String number_str) {
