@@ -1,8 +1,6 @@
 package com.epam.training.ticketservice.logic.handler.screening;
 
 import com.epam.training.ticketservice.logic.command.screening.CreateScreeningCommand;
-import com.epam.training.ticketservice.logic.command.user.SignInPrivilegedCommand;
-import com.epam.training.ticketservice.logic.handler.user.SignInPrivilegedCommandHandler;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;

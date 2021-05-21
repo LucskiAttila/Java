@@ -25,6 +25,10 @@ public class CreateMovieCommand {
     @Value("#{'${DIGITS}'.split(',')}")
     List<Character> digits;
 
+    public void setDigits(List<Character> digits) {
+        this.digits = digits;
+    }
+
     public CreateMovieCommand(MovieRepository movieRepository, UserRepository userRepository) {
         this.movieRepository = movieRepository;
         this.userRepository = userRepository;

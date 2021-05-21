@@ -1,6 +1,5 @@
 package com.epam.training.ticketservice.logic.handler.user;
 
-import com.epam.training.ticketservice.logic.command.user.SignInPrivilegedCommand;
 import com.epam.training.ticketservice.logic.command.user.SignUpCommand;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
