@@ -1,9 +1,5 @@
 package com.epam.training.ticketservice.database.entity;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,7 +11,6 @@ public class Room {
     int numberOfRowsOfChairs;
     int numberOfColumnsOfChairs;
     @OneToMany
-    //@LazyCollection(LazyCollectionOption.FALSE)
     List<PriceComponent> components;
 
     protected Room() {}

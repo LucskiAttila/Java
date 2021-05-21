@@ -6,24 +6,24 @@ import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;
 
+import java.util.Collection;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-class SignInPrivilegedCommandTest {
+class SignInCommandTest {
 
     @Test
     public void testOperateShouldReturnSignWhenUserAlreadySignedIn() {
-        // Given
         String username = "username";
         String password = "password";
+        // Given
         UserRepository userRepository = Mockito.mock(UserRepository.class);
         User user = Mockito.mock(User.class);
 
         BDDMockito.given(userRepository.findByIsSigned(true)).willReturn(user);
 
-        SignInPrivilegedCommand underTest = new SignInPrivilegedCommand(userRepository);
+        SignInCommand underTest = new SignInCommand(userRepository);
 
         // When
         String result = underTest.operate(username, password);
@@ -34,47 +34,65 @@ class SignInPrivilegedCommandTest {
     }
 
     @Test
-    public void testOperateShouldReturnCredentialsWhenUsernameAndPasswordIncorrect() {
-        // Given
+    public void testOperateShouldReturnExistWhenUsernameNotSignedUp() {
         String username = "username";
         String password = "password";
-        String validUsername = "admin";
-        String validPassword = "admin";
+        // Given
         UserRepository userRepository = Mockito.mock(UserRepository.class);
-        User user = Mockito.mock(User.class);
 
         BDDMockito.given(userRepository.findByIsSigned(true)).willReturn(null);
-        BDDMockito.given(userRepository.findByIsAdmin(true)).willReturn(user);
-        BDDMockito.given(user.getUserName()).willReturn(validUsername);
-        BDDMockito.given(user.getPassword()).willReturn(validPassword);
+        BDDMockito.given(userRepository.findByUserName(username)).willReturn(null);
 
-        SignInPrivilegedCommand underTest = new SignInPrivilegedCommand(userRepository);
+        SignInCommand underTest = new SignInCommand(userRepository);
 
         // When
         String result = underTest.operate(username, password);
 
         // Then
-        assertEquals("credentials", result);
+        assertEquals("exist", result);
         Mockito.verify(userRepository).findByIsSigned(true);
-        Mockito.verify(user).getUserName();
+        Mockito.verify(userRepository).findByUserName(username);
     }
 
-    @Test void testOperateShouldReturnOkWhenUsernameAndPasswordCorrect() {
+    @Test
+    public void testOperateShouldReturnInvalidWhenInvalidPassword() {
+        String username = "username";
+        String password = "password";
+        String badPassword = "n";
         // Given
-        String username = "admin";
-        String password = "admin";
         UserRepository userRepository = Mockito.mock(UserRepository.class);
         User user = Mockito.mock(User.class);
 
         BDDMockito.given(userRepository.findByIsSigned(true)).willReturn(null);
-        BDDMockito.given(userRepository.findByIsAdmin(true)).willReturn(user);
-        BDDMockito.given(user.getUserName()).willReturn(username);
+        BDDMockito.given(userRepository.findByUserName(username)).willReturn(user);
+        BDDMockito.given(user.getPassword()).willReturn(badPassword);
+
+        SignInCommand underTest = new SignInCommand(userRepository);
+
+        // When
+        String result = underTest.operate(username, password);
+
+        // Then
+        assertEquals("invalid", result);
+        Mockito.verify(userRepository).findByIsSigned(true);
+        Mockito.verify(userRepository).findByUserName(username);
+        Mockito.verify(user).getPassword();
+    }
+
+    @Test
+    public void testOperateShouldReturnOkWhenValidUsernameAndPassword() {
+        String username = "username";
+        String password = "password";
+        // Given
+        UserRepository userRepository = Mockito.mock(UserRepository.class);
+        User user = Mockito.mock(User.class);
+
+        BDDMockito.given(userRepository.findByIsSigned(true)).willReturn(null);
+        BDDMockito.given(userRepository.findByUserName(username)).willReturn(user);
         BDDMockito.given(user.getPassword()).willReturn(password);
-        BDDMockito.given(user.getIsAdmin()).willReturn(true);
-        BDDMockito.given(user.getIsSigned()).willReturn(false);
         BDDMockito.given(user.getBook()).willReturn(Collections.emptyList());
 
-        SignInPrivilegedCommand underTest = new SignInPrivilegedCommand(userRepository);
+        SignInCommand underTest = new SignInCommand(userRepository);
 
         // When
         String result = underTest.operate(username, password);
@@ -82,12 +100,10 @@ class SignInPrivilegedCommandTest {
         // Then
         assertEquals("ok", result);
         Mockito.verify(userRepository).findByIsSigned(true);
-        Mockito.verify(user).getUserName();
+        Mockito.verify(userRepository).findByUserName(username);
         Mockito.verify(user).getPassword();
         Mockito.verify(user).getBook();
-        Mockito.verify(user).getIsAdmin();
-        Mockito.verify(user).getIsSigned();
         Mockito.verify(userRepository).delete(user);
-        Mockito.verify(userRepository).save(new User (username, password, true, true, Collections.emptyList()));
+        Mockito.verify(userRepository).save(new User (username, password, false, true, Collections.emptyList()));
     }
 }

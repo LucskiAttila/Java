@@ -20,22 +20,30 @@ public class SignInCommand  {
 
     public String operate(String username, String password) {
         if (isNoOneSignedIn()) {
-            if(isValid(username, password)) {
-                List<Book> books = user.getBook();
-                userRepository.delete(user);
-                userRepository.save(new User(username, password, false, true, books));
-                return "ok";
+            if(isValid(username)) {
+                if (passwordOk(password)) {
+                    List<Book> books = user.getBook();
+                    userRepository.delete(user);
+                    userRepository.save(new User(username, password, false, true, books));
+                    return "ok";
+                } else {
+                    return "invalid";
+                }
             } else {
-                return "invalid";
+                return "exist";
             }
         } else {
             return "sign";
         }
     }
 
-    private boolean isValid(String username, String password) {
+    private boolean passwordOk(String password) {
+        return user.getPassword().equals(password);
+    }
+
+    private boolean isValid(String username) {
         user = userRepository.findByUserName(username);
-        return user != null && user.getPassword().equals(password);
+        return user != null;
     }
 
     private boolean isNoOneSignedIn() {

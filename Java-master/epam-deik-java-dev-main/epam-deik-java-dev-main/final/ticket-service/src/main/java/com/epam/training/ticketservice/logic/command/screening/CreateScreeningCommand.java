@@ -21,11 +21,23 @@ public class CreateScreeningCommand {
     @Value("${DATE_FORMAT_VALID}")
     String dateFormatValid;
 
+    public void setDateFormatValid(String dateFormatValid) {
+        this.dateFormatValid = dateFormatValid;
+    }
+
     @Value("${DATE_FORMAT}")
     String dateFormat;
 
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
     @Value("${BREAKING_TIME}")
     int break_time;
+
+    public void setBreak_time(int break_time) {
+        this.break_time = break_time;
+    }
 
     private Movie movie;
     private Room room;
@@ -100,10 +112,10 @@ public class CreateScreeningCommand {
         c.add(Calendar.MINUTE, movie_length);
         Date endDate = c.getTime();
         List<Screening> screeningList = screeningRepository.findByRoomAndStartsDateTimeBefore(room, endDate);
-        for (Screening screening_actual: screeningList) {
-            int movie_length_actual = screening_actual.getMovie().getDurationInMinutes();
+        for (int i = 0; i < screeningList.size(); i++) {
+            int movie_length_actual = screeningList.get(i).getMovie().getDurationInMinutes();
             Calendar c_actual = Calendar.getInstance();
-            c_actual.setTime(screening_actual.getStartsDateTime());
+            c_actual.setTime(screeningList.get(i).getStartsDateTime());
             c_actual.add(Calendar.MINUTE, movie_length_actual);
             Date endDate_actual = c_actual.getTime();
             if(endDate_actual.getTime() >= startsDateTime_date.getTime()) {
@@ -137,14 +149,14 @@ public class CreateScreeningCommand {
             }
             return false;
         } else if (movie == null) {
-            invalid_error += " " + title;
+            invalid_error += title;
             return false;
         }
         return true;
     }
 
-    private boolean checkDateFormat(String startsDateAndTime) {
-        return startsDateAndTime.matches(dateFormatValid);
+    private boolean checkDateFormat(String startsDateTime) {
+        return startsDateTime.matches(dateFormatValid);
     }
 
     private boolean hasPermission() {

@@ -6,8 +6,6 @@ import com.epam.training.ticketservice.database.repository.MovieRepository;
 import com.epam.training.ticketservice.database.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class DeleteMovieCommand {
 

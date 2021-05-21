@@ -1,6 +1,5 @@
 package com.epam.training.ticketservice.logic.handler.price.priceomponent.attach;
 
-
 import com.epam.training.ticketservice.logic.command.room.AttachPriceComponentRoomCommand;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;

@@ -3,7 +3,6 @@ package com.epam.training.ticketservice.logic.handler.price.baseprice;
 import com.epam.training.ticketservice.logic.command.price.baseprice.UpdateBasePriceCommand;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
-import org.springframework.util.StringUtils;
 
 @ShellComponent
 public class UpdateBasePriceCommandHandler {

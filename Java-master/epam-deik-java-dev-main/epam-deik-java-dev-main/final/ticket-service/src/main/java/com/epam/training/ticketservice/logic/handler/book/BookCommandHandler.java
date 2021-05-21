@@ -1,6 +1,5 @@
 package com.epam.training.ticketservice.logic.handler.book;
 
-
 import com.epam.training.ticketservice.logic.command.book.BookCommand;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;

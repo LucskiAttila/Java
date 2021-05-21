@@ -17,6 +17,10 @@ public class ListScreeningsCommandHandler {
     @Value("${DATE_FORMAT}")
     private String dateFormat;
 
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
     private final ListScreeningsCommand listScreeningsCommand;
 
     public ListScreeningsCommandHandler(ListScreeningsCommand listScreeningsCommand) {
@@ -30,12 +34,12 @@ public class ListScreeningsCommandHandler {
             return "There are no screenings";
         } else {
             StringBuilder result = new StringBuilder();
-            for (Screening screening : screenings) {
-                Movie movie = screening.getMovie();
-                if (screening == screenings.get(screenings.size() - 1)) {
-                    result.append(StringUtils.capitalize(movie.getTitle())).append(" (").append(movie.getGenre()).append(" minutes, ").append(movie.getDurationInMinutes()).append("), screened in room ").append(screening.getRoom().getRoomName()).append(", at ").append(new SimpleDateFormat(dateFormat).format(screening.getStartsDateTime()));
+            for (int i = 0; i < screenings.size(); i++) {
+                Movie movie = screenings.get(i).getMovie();
+                if (i == screenings.size() - 1) {
+                    result.append(StringUtils.capitalize(movie.getTitle())).append(" (").append(movie.getGenre()).append(", ").append(movie.getDurationInMinutes()).append(" minutes), screened in room ").append(screenings.get(i).getRoom().getRoomName()).append(", at ").append(new SimpleDateFormat(dateFormat).format(screenings.get(i).getStartsDateTime()));
                 } else {
-                    result.append(StringUtils.capitalize(movie.getTitle())).append(" (").append(movie.getGenre()).append(" minutes, ").append(movie.getDurationInMinutes()).append("), screened in room ").append(screening.getRoom().getRoomName()).append(", at ").append(new SimpleDateFormat(dateFormat).format(screening.getStartsDateTime())).append("\n");
+                    result.append(StringUtils.capitalize(movie.getTitle())).append(" (").append(movie.getGenre()).append(", ").append(movie.getDurationInMinutes()).append(" minutes), screened in room ").append(screenings.get(i).getRoom().getRoomName()).append(", at ").append(new SimpleDateFormat(dateFormat).format(screenings.get(i).getStartsDateTime())).append("\n");
                 }
             }
             return result.toString();

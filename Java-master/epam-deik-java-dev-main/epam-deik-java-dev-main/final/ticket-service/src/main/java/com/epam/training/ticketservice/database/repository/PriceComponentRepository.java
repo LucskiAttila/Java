@@ -1,6 +1,5 @@
 package com.epam.training.ticketservice.database.repository;
 
-import com.epam.training.ticketservice.database.entity.Movie;
 import com.epam.training.ticketservice.database.entity.PriceComponent;
 import org.springframework.data.jpa.repository.JpaRepository;
 

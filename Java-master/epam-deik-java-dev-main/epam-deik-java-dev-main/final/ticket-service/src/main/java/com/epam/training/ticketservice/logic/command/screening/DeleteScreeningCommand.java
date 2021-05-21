@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 @Component
 public class DeleteScreeningCommand {
@@ -22,8 +21,16 @@ public class DeleteScreeningCommand {
     @Value("${DATE_FORMAT_VALID}")
     String dateFormatValid;
 
+    public void setDateFormatValid(String dateFormatValid) {
+        this.dateFormatValid = dateFormatValid;
+    }
+
     @Value("${DATE_FORMAT}")
     String dateFormat;
+
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
 
     private Movie movie;
     private Room room;
@@ -46,16 +53,20 @@ public class DeleteScreeningCommand {
         this.userRepository = userRepository;
     }
 
-    public String operate(String title, String roomName, String startsDateAndTime) {
+    public String operate(String title, String roomName, String startsDateTime) {
         if (hasPermission()) {
-            if (checkDateFormat(startsDateAndTime)) {
+            if (checkDateFormat(startsDateTime)) {
                 if (check(title, roomName)) {
-                    formatDate(startsDateAndTime);
+                    formatDate(startsDateTime);
+                    if (checkDateValid(startsDateTime)) {
                     if (isValid()) {
                         delete();
                         return "ok";
                     } else {
                         return "exist";
+                    }
+                    } else {
+                        return "invalid";
                     }
                 } else {
                     return invalid_error;
@@ -66,6 +77,10 @@ public class DeleteScreeningCommand {
         } else {
             return permission_error;
         }
+    }
+
+    private boolean checkDateValid(String startsDateTime) {
+        return startsDateTime.equals(new SimpleDateFormat(dateFormat).format(startsDateTime_date));
     }
 
     private void formatDate(String startsDateAndTime) {
@@ -91,7 +106,7 @@ public class DeleteScreeningCommand {
             }
             return false;
         } else if (movie == null) {
-            invalid_error += " " + title;
+            invalid_error += title;
             return false;
         }
         return true;

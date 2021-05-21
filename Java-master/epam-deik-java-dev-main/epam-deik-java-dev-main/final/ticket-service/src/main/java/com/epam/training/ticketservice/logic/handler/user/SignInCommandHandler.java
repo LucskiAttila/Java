@@ -20,7 +20,10 @@ public class SignInCommandHandler {
             return "You already signed in";
         } else if (result.equals("ok")) {
             return "You successfully signed in with " + username;
-        } else {
+        } else if (result.equals("exist")) {
+            return "No user with " + username;
+        }
+        else {
             return "Login failed due to incorrect credentials";
         }
     }

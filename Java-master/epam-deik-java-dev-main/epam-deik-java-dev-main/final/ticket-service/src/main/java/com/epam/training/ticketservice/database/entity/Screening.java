@@ -1,16 +1,9 @@
 package com.epam.training.ticketservice.database.entity;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-
-//import lombook.AllArgsConstructor;
-//import lombook.NoArgsConstructor;
-//import lombook.Generated;
+import java.util.Objects;
 
 @Entity
 @IdClass(ScreeningId.class)
@@ -25,7 +18,6 @@ public class Screening {
     @Id
     Date startsDateTime;
     @OneToMany
-    //@LazyCollection(LazyCollectionOption.FALSE)
     List<PriceComponent> components;
 
     protected Screening() {}
@@ -50,5 +42,18 @@ public class Screening {
 
     public List<PriceComponent> getComponents() {
         return components;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Screening screening = (Screening) o;
+        return Objects.equals(movie, screening.movie) && Objects.equals(room, screening.room) && Objects.equals(startsDateTime, screening.startsDateTime) && Objects.equals(components, screening.components);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(movie, room, startsDateTime, components);
     }
 }

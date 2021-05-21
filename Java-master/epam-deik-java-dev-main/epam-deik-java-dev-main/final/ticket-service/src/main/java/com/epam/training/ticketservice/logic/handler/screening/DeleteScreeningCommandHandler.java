@@ -28,6 +28,8 @@ public class DeleteScreeningCommandHandler {
                 return "You don't have permission";
             case "format":
                 return "You use invalid dateformat";
+            case "invalid":
+                return "You add invalid date: " + startsDateTime;
             default:
                 return "You add invalid properties: " + result;
         }

@@ -868,3 +868,12 @@
 1621549123563:sign in s a
 1621549141376:book Movie Room "2012-12-12 12:12" "1,1"
 1621549156965:exit
+1621587288271:sign in privileged admin admin
+1621587295164:create room Room 25 25
+1621587301482:create movie Movie d 25
+1621587315912:create screening Movie Room "2012-12-12 12:12"
+1621587322841:exit
+1621589416769:sign in privileged admin admin
+1621589433810:create screening Movie Room "231231"
+1621589454566:create screening Movie Room"2012-12-12 12:12"
+1621589484260:create screening Movie Room "2012-12-12 12:12"

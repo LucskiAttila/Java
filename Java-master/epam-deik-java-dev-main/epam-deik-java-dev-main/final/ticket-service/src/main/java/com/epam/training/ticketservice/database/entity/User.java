@@ -36,9 +36,6 @@ public class User {
     public List<Book> getBook() {
         return book;
     }
-    /*public void setBook(List<Book> books) {
-        this.book = books;
-    }*/
     public String getPassword() {
         return password;
     }
