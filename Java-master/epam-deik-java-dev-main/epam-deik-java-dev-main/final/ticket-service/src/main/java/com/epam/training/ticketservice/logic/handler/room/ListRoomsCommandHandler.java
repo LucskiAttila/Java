@@ -20,15 +20,21 @@ public class ListRoomsCommandHandler {
     @ShellMethod(value = "List rooms with properties", key = "list rooms")
     public String listRooms() {
         List<Room> rooms = listRoomsCommand.operate();
-        if(rooms.isEmpty()) {
+        if (rooms.isEmpty()) {
             return "There are no rooms at the moment";
         } else {
             StringBuilder result = new StringBuilder();
-            for (Room room : rooms) {
-                if (room == rooms.get(rooms.size() - 1)) {
-                    result.append(StringUtils.capitalize("room ")).append(room.getRoomName()).append(" with ").append(getChairNumber(room)).append(" seats, ").append(room.getNumberOfRowsOfChairs()).append(" rows and ").append(room.getNumberOfColumnsOfChairs()).append(" columns");
+            for (int i = 0; i < rooms.size(); i++) {
+                if (i == rooms.size() - 1) {
+                    result.append(StringUtils.capitalize("room ")).append(rooms.get(i).getRoomName())
+                            .append(" with ").append(getChairNumber(rooms.get(i))).append(" seats, ")
+                            .append(rooms.get(i).getNumberOfRowsOfChairs()).append(" rows and ")
+                            .append(rooms.get(i).getNumberOfColumnsOfChairs()).append(" columns");
                 } else {
-                    result.append(StringUtils.capitalize("room ")).append(room.getRoomName()).append(" with ").append(getChairNumber(room)).append(" seats, ").append(room.getNumberOfRowsOfChairs()).append(" rows and ").append(room.getNumberOfColumnsOfChairs()).append(" columns\n");
+                    result.append(StringUtils.capitalize("room ")).append(rooms.get(i).getRoomName())
+                            .append(" with ").append(getChairNumber(rooms.get(i))).append(" seats, ")
+                            .append(rooms.get(i).getNumberOfRowsOfChairs()).append(" rows and ")
+                            .append(rooms.get(i).getNumberOfColumnsOfChairs()).append(" columns\n");
                 }
             }
             return result.toString();

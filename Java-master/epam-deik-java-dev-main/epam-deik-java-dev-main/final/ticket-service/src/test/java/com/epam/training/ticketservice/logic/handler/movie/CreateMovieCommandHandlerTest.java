@@ -83,7 +83,7 @@ class CreateMovieCommandHandlerTest {
     }
 
     @Test
-    public void testCreateMovieShouldReturnInvalidDurationInMinutesWhenAdminBadString() {
+    public void testCreateMovieShouldReturnInvalidDurationInMinutesWhenBadString() {
         // Given
         String badString = "S";
         CreateMovieCommand createMovieCommand = Mockito.mock(CreateMovieCommand.class);

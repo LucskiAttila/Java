@@ -1,6 +1,10 @@
 package com.epam.training.ticketservice.database.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +24,8 @@ public class Screening {
     @OneToMany
     List<PriceComponent> components;
 
-    protected Screening() {}
+    protected Screening() {
+    }
 
     public Screening(Movie movie, Room room, Date startsDateTime, List<PriceComponent> components) {
         this.movie = movie;
@@ -28,6 +33,7 @@ public class Screening {
         this.startsDateTime = startsDateTime;
         this.components = components;
     }
+
     public Movie getMovie() {
         return movie;
     }
@@ -46,10 +52,16 @@ public class Screening {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Screening screening = (Screening) o;
-        return Objects.equals(movie, screening.movie) && Objects.equals(room, screening.room) && Objects.equals(startsDateTime, screening.startsDateTime) && Objects.equals(components, screening.components);
+        return Objects.equals(movie, screening.movie) && Objects.equals(room, screening.room)
+                && Objects.equals(startsDateTime, screening.startsDateTime)
+                && Objects.equals(components, screening.components);
     }
 
     @Override

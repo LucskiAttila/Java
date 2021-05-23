@@ -19,15 +19,15 @@ public class UpdateMovieCommandHandler {
         String result = updateMovieCommand.operate(title, genre, durationInMinutes);
         switch (result) {
             case "first":
-                return "You successfully updated genre of " + title;
-            case "second":
                 return "You successfully updated duration in minutes of " + title;
+            case "second":
+                return "You successfully updated genre of " + title;
             case "all":
                 return "You add same properties";
             case "":
                 return "You successfully updated all properties of " + title;
             case "exist":
-                return StringUtils.capitalize(title) + " movie is already exists";
+                return StringUtils.capitalize(title) + " movie doesn't exists";
             case "sign":
                 return "You aren't signed in";
             case "admin":

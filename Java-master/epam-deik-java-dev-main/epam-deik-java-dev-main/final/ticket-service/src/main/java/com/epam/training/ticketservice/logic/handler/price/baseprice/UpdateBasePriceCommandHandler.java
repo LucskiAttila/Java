@@ -14,17 +14,17 @@ public class UpdateBasePriceCommandHandler {
     }
 
     @ShellMethod(value = "Update base price to given price", key = "update base price")
-    public String UpdateBasePrice(String base_price) {
-        String result = updateBasePriceCommand.operate(base_price);
+    public String updateBasePrice(String basePrice) {
+        String result = updateBasePriceCommand.operate(basePrice);
         switch (result) {
             case "ok":
-                return "Base price is successfully set to " + base_price;
+                return "Base price is successfully set to " + basePrice;
             case "sign":
                 return "You aren't signed in";
             case "admin":
                 return "You don't have permission";
             case "same":
-                return "You add same base price " + base_price;
+                return "You add same base price " + basePrice;
             default:
                 return "You add invalid integer " + result;
         }

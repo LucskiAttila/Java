@@ -12,22 +12,30 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class AttachPriceComponentRoomCommand{
+public class AttachPriceComponentRoomCommand {
 
     @Value("${ATTACH_MORE}")
     private boolean canAttachMore;
 
-    private String permission_error;
-    private String invalid_error;
+    private List<PriceComponent> components;
+
+    private String permissionError;
+    private String invalidError;
 
     private Room room;
     private PriceComponent priceComponent;
+
+    public void setCanAttachMore(boolean canAttachMore) {
+        this.canAttachMore = canAttachMore;
+    }
 
     private final RoomRepository roomRepository;
     private final PriceComponentRepository priceComponentRepository;
     private final UserRepository userRepository;
 
-    public AttachPriceComponentRoomCommand(RoomRepository roomRepository, UserRepository userRepository, PriceComponentRepository priceComponentRepository) {
+    public AttachPriceComponentRoomCommand(RoomRepository roomRepository,
+                                           UserRepository userRepository,
+                                           PriceComponentRepository priceComponentRepository) {
         this.roomRepository = roomRepository;
         this.priceComponentRepository = priceComponentRepository;
         this.userRepository = userRepository;
@@ -36,17 +44,17 @@ public class AttachPriceComponentRoomCommand{
     public String operate(String name, String roomName) {
         if (hasPermission()) {
             if (isValid(name, roomName)) {
-                boolean isDuplication = !isComponentValid(name);
+                boolean isDuplication = isComponentValid(name);
                 if (canAttachMore) {
-                    save();
+                    save(roomName);
                     if (isDuplication) {
-                        return "ok_duplicate";
+                        return "okDuplicate";
                     } else {
                         return "ok";
                     }
                 } else {
                     if (!isDuplication) {
-                        save();
+                        save(roomName);
                         return "ok";
                     } else {
                         return "more";
@@ -54,41 +62,44 @@ public class AttachPriceComponentRoomCommand{
 
                 }
             } else {
-                return invalid_error;
+                return invalidError;
             }
         } else {
-            return permission_error;
+            return permissionError;
         }
     }
 
-    private void save() {
-        List<PriceComponent> components = room.getComponents();
+    private void save(String roomName) {
         components.add(priceComponent);
         roomRepository.delete(room);
-        roomRepository.save(new Room (room.getRoomName(), room.getNumberOfRowsOfChairs(), room.getNumberOfColumnsOfChairs(), components));
+        roomRepository.save(new Room(roomName,
+                room.getNumberOfRowsOfChairs(),
+                room.getNumberOfColumnsOfChairs(), components));
     }
 
     private boolean isComponentValid(String name) {
-        for (PriceComponent priceComponent : room.getComponents()) {
-            if (name.equals(priceComponent.getName())) {
-                return false;
+        components = room.getComponents();
+        int size = components.size();
+        for (int i = 0; i < size; i++) {
+            if (name.equals(components.get(i).getName())) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     private boolean isValid(String name, String roomName) {
         room =  roomRepository.findByRoomName(roomName);
         priceComponent = priceComponentRepository.findByName(name);
         if (room == null) {
-            invalid_error = "room";
+            invalidError = "first";
             if (priceComponent == null) {
-                invalid_error = "all";
+                invalidError = "all";
             }
             return false;
         }
         if (priceComponent == null) {
-            invalid_error = "component";
+            invalidError = "second";
             return false;
         }
         return true;
@@ -99,14 +110,12 @@ public class AttachPriceComponentRoomCommand{
         if (user != null) {
             if (user.getIsAdmin()) {
                 return true;
-            }
-            else {
-                permission_error = "admin";
+            } else {
+                permissionError = "admin";
                 return false;
             }
-        }
-        else {
-            permission_error = "sign";
+        } else {
+            permissionError = "sign";
             return false;
         }
     }

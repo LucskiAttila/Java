@@ -1,6 +1,8 @@
 package com.epam.training.ticketservice.database.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Id;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +16,8 @@ public class Movie {
     @OneToMany
     List<PriceComponent> components;
 
-    protected Movie() {}
+    protected Movie() {
+    }
 
     public Movie(String title, String genre, int durationInMinutes, List<PriceComponent> components) {
         this.title = title;
@@ -41,10 +44,15 @@ public class Movie {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Movie movie = (Movie) o;
-        return durationInMinutes == movie.durationInMinutes && Objects.equals(title, movie.title) && Objects.equals(genre, movie.genre) && Objects.equals(components, movie.components);
+        return durationInMinutes == movie.durationInMinutes && Objects.equals(title, movie.title)
+                && Objects.equals(genre, movie.genre) && Objects.equals(components, movie.components);
     }
 
     @Override

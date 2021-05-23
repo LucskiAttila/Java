@@ -8,34 +8,34 @@ import java.util.Objects;
 public class BasePrice {
 
     @Id
-    int base_price;
+    int basePriceValue;
 
-    public BasePrice(int base_price) {
-        this.base_price = base_price;
+    public BasePrice(int basePriceValue) {
+        this.basePriceValue = basePriceValue;
     }
 
     public BasePrice() {
 
     }
 
-    public int getBase_price() {
-        return base_price;
-    }
-
-    public void setBase_price(int base_price) {
-        this.base_price = base_price;
+    public int getBasePriceValue() {
+        return basePriceValue;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         BasePrice basePrice = (BasePrice) o;
-        return base_price == basePrice.base_price;
+        return basePriceValue == basePrice.basePriceValue;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(base_price);
+        return Objects.hash(basePriceValue);
     }
 }

@@ -28,12 +28,10 @@ public class SignInPrivilegedCommand {
                 userRepository.delete(user);
                 userRepository.save(new User(username, password, isAdmin, isSigned, book));
                 return "ok";
-            }
-            else{
+            } else {
                 return "credentials";
             }
-        }
-        else {
+        } else {
             return "sign";
         }
     }

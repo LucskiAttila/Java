@@ -51,7 +51,7 @@ class SignInPrivilegedCommandHandlerTest {
         // Given
         SignInPrivilegedCommand signInPrivilegedCommand = Mockito.mock(SignInPrivilegedCommand.class);
 
-        BDDMockito.given(signInPrivilegedCommand.operate(USERNAME, PASSWORD)).willReturn("format");
+        BDDMockito.given(signInPrivilegedCommand.operate(USERNAME, PASSWORD)).willReturn("sign");
 
         SignInPrivilegedCommandHandler underTest = new SignInPrivilegedCommandHandler(signInPrivilegedCommand);
 
@@ -59,24 +59,7 @@ class SignInPrivilegedCommandHandlerTest {
         String result = underTest.signInUser(USERNAME, PASSWORD);
 
         // Then
-        assertEquals("You use invalid dateformat", result);
-        Mockito.verify(signInPrivilegedCommand).operate(USERNAME, PASSWORD);
-    }
-
-    @Test
-    public void testSignInUserShouldReturnInvalidDateFormatWhen() {
-        // Given
-        SignInPrivilegedCommand signInPrivilegedCommand = Mockito.mock(SignInPrivilegedCommand.class);
-
-        BDDMockito.given(signInPrivilegedCommand.operate(USERNAME, PASSWORD)).willReturn("format");
-
-        SignInPrivilegedCommandHandler underTest = new SignInPrivilegedCommandHandler(signInPrivilegedCommand);
-
-        // When
-        String result = underTest.signInUser(USERNAME, PASSWORD);
-
-        // Then
-        assertEquals("You use invalid dateformat", result);
+        assertEquals("You already signed in", result);
         Mockito.verify(signInPrivilegedCommand).operate(USERNAME, PASSWORD);
     }
 }

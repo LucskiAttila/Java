@@ -4,44 +4,46 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private int row_number;
-    private int column_number;
+    private int rowNumber;
+    private int columnNumber;
 
-    public Seat(int row_number, int column_number) {
-        this.row_number = row_number;
-        this.column_number = column_number;
+    public Seat(int rowNumber, int columnNumber) {
+        this.rowNumber = rowNumber;
+        this.columnNumber = columnNumber;
     }
 
     public Seat() {
-
     }
 
-    public int getRow_number() {
-        return row_number;
-    }
-    public int getColumn_number() {
-        return column_number;
+    public int getRowNumber() {
+        return rowNumber;
     }
 
-    public void setRow_number(int row_number) {
-        this.row_number = row_number;
+    public int getColumnNumber() {
+        return columnNumber;
     }
 
-    public void setColumn_number(int column_number) {
-        this.column_number = column_number;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Seat seat = (Seat) o;
+        return rowNumber == seat.rowNumber && columnNumber == seat.columnNumber && Objects.equals(id, seat.id);
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, rowNumber, columnNumber);
     }
 }

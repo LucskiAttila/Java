@@ -66,7 +66,7 @@ class CreateScreeningCommandHandlerTest {
     }
 
     @Test
-    public void testCreateScreeningShouldReturnSignInNotAdminWhenSign() {
+    public void testCreateScreeningShouldReturnSignInNotAdminWhenAdmin() {
         // Given
         CreateScreeningCommand createScreeningCommand = Mockito.mock(CreateScreeningCommand.class);
 

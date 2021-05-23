@@ -38,8 +38,12 @@ public class PriceComponent {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PriceComponent that = (PriceComponent) o;
         return price == that.price && name.equals(that.name);
     }

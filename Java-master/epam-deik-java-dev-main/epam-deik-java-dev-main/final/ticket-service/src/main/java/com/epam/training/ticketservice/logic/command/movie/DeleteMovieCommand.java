@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DeleteMovieCommand {
 
-    private String permission_error;
+    private String permissionError;
     private Movie movie;
 
     private final MovieRepository movieRepository;
@@ -29,7 +29,7 @@ public class DeleteMovieCommand {
                 return "exist";
             }
         } else {
-            return permission_error;
+            return permissionError;
         }
     }
 
@@ -42,14 +42,12 @@ public class DeleteMovieCommand {
         if (user != null) {
             if (user.getIsAdmin()) {
                 return true;
-            }
-            else {
-                permission_error = "admin";
+            } else {
+                permissionError = "admin";
                 return false;
             }
-        }
-        else {
-            permission_error = "sign";
+        } else {
+            permissionError = "sign";
             return false;
         }
     }

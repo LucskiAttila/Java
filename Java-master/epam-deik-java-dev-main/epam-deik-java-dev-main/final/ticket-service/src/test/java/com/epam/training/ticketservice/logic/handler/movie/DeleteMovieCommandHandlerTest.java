@@ -1,6 +1,5 @@
 package com.epam.training.ticketservice.logic.handler.movie;
 
-import com.epam.training.ticketservice.logic.command.movie.CreateMovieCommand;
 import com.epam.training.ticketservice.logic.command.movie.DeleteMovieCommand;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
@@ -31,7 +30,7 @@ class DeleteMovieCommandHandlerTest {
     }
 
     @Test
-    public void testDeleteMovieShouldReturnMovieAlreadyExistWhenExist() {
+    public void testDeleteMovieShouldReturnMovieNotExistWhenExist() {
         // Given
         DeleteMovieCommand deleteMovieCommand = Mockito.mock(DeleteMovieCommand.class);
 

@@ -1,6 +1,10 @@
 package com.epam.training.ticketservice.logic.command.screening;
 
-import com.epam.training.ticketservice.database.entity.*;
+import com.epam.training.ticketservice.database.entity.Movie;
+import com.epam.training.ticketservice.database.entity.Room;
+import com.epam.training.ticketservice.database.entity.Screening;
+import com.epam.training.ticketservice.database.entity.PriceComponent;
+import com.epam.training.ticketservice.database.entity.User;
 import com.epam.training.ticketservice.database.repository.MovieRepository;
 import com.epam.training.ticketservice.database.repository.RoomRepository;
 import com.epam.training.ticketservice.database.repository.ScreeningRepository;
@@ -33,27 +37,30 @@ public class CreateScreeningCommand {
     }
 
     @Value("${BREAKING_TIME}")
-    int break_time;
+    int breakTime;
 
-    public void setBreak_time(int break_time) {
-        this.break_time = break_time;
+    public void setBreakTime(int breakTime) {
+        this.breakTime = breakTime;
     }
 
     private Movie movie;
     private Room room;
 
-    private String invalid_error;
-    private String permission_error;
+    private String invalidError;
+    private String permissionError;
     private String badDate;
 
-    private Date startsDateTime_date;
+    private Date startsDateTimeFormatDate;
 
     private final ScreeningRepository screeningRepository;
     private final MovieRepository movieRepository;
     private final RoomRepository roomRepository;
     private final UserRepository userRepository;
 
-    public CreateScreeningCommand(ScreeningRepository screeningRepository, MovieRepository movieRepository, RoomRepository roomRepository, UserRepository userRepository) {
+    public CreateScreeningCommand(ScreeningRepository screeningRepository,
+                                  MovieRepository movieRepository,
+                                  RoomRepository roomRepository,
+                                  UserRepository userRepository) {
         this.screeningRepository = screeningRepository;
         this.movieRepository = movieRepository;
         this.roomRepository = roomRepository;
@@ -68,7 +75,8 @@ public class CreateScreeningCommand {
                     if (checkDateValid(startsDateTime)) {
                         if (isValid()) {
                             if (checkError(roomName)) {
-                                screeningRepository.save(new Screening(movie, room, startsDateTime_date, new ArrayList<PriceComponent>()));
+                                screeningRepository.save(new Screening(movie, room, startsDateTimeFormatDate,
+                                        new ArrayList<PriceComponent>()));
                                 return "ok";
                             } else {
                                 return badDate;
@@ -80,23 +88,23 @@ public class CreateScreeningCommand {
                         return "invalid";
                     }
                 } else {
-                    return invalid_error;
+                    return invalidError;
                 }
             } else {
                 return "format";
             }
         } else {
-            return permission_error;
+            return permissionError;
         }
     }
 
     private boolean checkDateValid(String startsDateTime) {
-        return startsDateTime.equals(new SimpleDateFormat(dateFormat).format(startsDateTime_date));
+        return startsDateTime.equals(new SimpleDateFormat(dateFormat).format(startsDateTimeFormatDate));
     }
 
     private void formatDate(String startsDateAndTime) {
         try {
-            startsDateTime_date = new SimpleDateFormat(dateFormat).parse(startsDateAndTime);
+            startsDateTimeFormatDate = new SimpleDateFormat(dateFormat).parse(startsDateAndTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -106,27 +114,28 @@ public class CreateScreeningCommand {
         if (!roomName.equals(room.getRoomName())) {
             return true;
         }
-        int movie_length = movie.getDurationInMinutes();
+        int movieLength = movie.getDurationInMinutes();
         Calendar c = Calendar.getInstance();
-        c.setTime(startsDateTime_date);
-        c.add(Calendar.MINUTE, movie_length);
+        c.setTime(startsDateTimeFormatDate);
+        c.add(Calendar.MINUTE, movieLength);
         Date endDate = c.getTime();
         List<Screening> screeningList = screeningRepository.findByRoomAndStartsDateTimeBefore(room, endDate);
         for (int i = 0; i < screeningList.size(); i++) {
-            int movie_length_actual = screeningList.get(i).getMovie().getDurationInMinutes();
-            Calendar c_actual = Calendar.getInstance();
-            c_actual.setTime(screeningList.get(i).getStartsDateTime());
-            c_actual.add(Calendar.MINUTE, movie_length_actual);
-            Date endDate_actual = c_actual.getTime();
-            if(endDate_actual.getTime() >= startsDateTime_date.getTime()) {
+            int movieLengthActual = screeningList.get(i).getMovie().getDurationInMinutes();
+            Calendar calendarActual = Calendar.getInstance();
+            calendarActual.setTime(screeningList.get(i).getStartsDateTime());
+            calendarActual.add(Calendar.MINUTE, movieLengthActual);
+            Date endDateActual = calendarActual.getTime();
+            if (endDateActual.getTime() >= startsDateTimeFormatDate.getTime()) {
                 badDate = "overlap";
                 return false;
             }
-            Calendar c_actual_break = Calendar.getInstance();
-            c_actual_break.setTime(endDate_actual);
-            c_actual_break.add(Calendar.MINUTE, break_time);
-            Date endDate_actual_break = c_actual_break.getTime();
-            if(endDate_actual.getTime() < startsDateTime_date.getTime() && endDate_actual_break.getTime() >= startsDateTime_date.getTime()) {
+            Calendar calendarActualBreak = Calendar.getInstance();
+            calendarActualBreak.setTime(endDateActual);
+            calendarActualBreak.add(Calendar.MINUTE, breakTime);
+            Date endDateActualBreak = calendarActualBreak.getTime();
+            if (endDateActual.getTime() < startsDateTimeFormatDate.getTime()
+                    && endDateActualBreak.getTime() >= startsDateTimeFormatDate.getTime()) {
                 badDate = "breaking";
                 return false;
             }
@@ -135,21 +144,21 @@ public class CreateScreeningCommand {
     }
 
     private boolean isValid() {
-        return screeningRepository.findByMovieAndRoomAndStartsDateTime(movie, room, startsDateTime_date) == null;
+        return screeningRepository.findByMovieAndRoomAndStartsDateTime(movie, room, startsDateTimeFormatDate) == null;
     }
 
     private boolean check(String title, String roomName) {
         room = roomRepository.findByRoomName(roomName);
         movie = movieRepository.findByTitle(title);
-        invalid_error = "";
+        invalidError = "";
         if (room == null) {
-            invalid_error += roomName;
+            invalidError += roomName;
             if (movie == null) {
-                invalid_error += " " + title;
+                invalidError += " " + title;
             }
             return false;
         } else if (movie == null) {
-            invalid_error += title;
+            invalidError += title;
             return false;
         }
         return true;
@@ -164,14 +173,12 @@ public class CreateScreeningCommand {
         if (user != null) {
             if (user.getIsAdmin()) {
                 return true;
-            }
-            else {
-                permission_error = "admin";
+            } else {
+                permissionError = "admin";
                 return false;
             }
-        }
-        else {
-            permission_error = "sign";
+        } else {
+            permissionError = "sign";
             return false;
         }
     }

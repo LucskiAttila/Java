@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DeleteScreeningCommandTest {
 
     @Test
-    public void testOperateShouldReturnSignWhenUserAlreadySignedIn() {
+    public void testOperateShouldReturnSignWhenUserNotSignedIn() {
         // Given
         String title = "Title";
         String roomName = "RoomName";

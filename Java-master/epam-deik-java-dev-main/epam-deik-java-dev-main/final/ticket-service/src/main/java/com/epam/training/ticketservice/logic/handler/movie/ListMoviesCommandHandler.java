@@ -20,15 +20,19 @@ public class ListMoviesCommandHandler {
     @ShellMethod(value = "List movies with properties", key = "list movies")
     public String listMovies() {
         List<Movie> movies = listMoviesCommand.operate();
-        if(movies.isEmpty()) {
+        if (movies.isEmpty()) {
             return "There are no movies at the moment";
         } else {
             StringBuilder result = new StringBuilder();
-            for (Movie movie : movies) {
-                if (movie == movies.get(movies.size() - 1)) {
-                    result.append(StringUtils.capitalize(movie.getTitle())).append(" (").append(movie.getGenre()).append(", ").append(movie.getDurationInMinutes()).append(" minutes)");
+            for (int i = 0; i < movies.size(); i++) {
+                if (i == movies.size() - 1) {
+                    result.append(StringUtils.capitalize(movies.get(i).getTitle())).append(" (")
+                            .append(movies.get(i).getGenre()).append(", ")
+                            .append(movies.get(i).getDurationInMinutes()).append(" minutes)");
                 } else {
-                    result.append(StringUtils.capitalize(movie.getTitle())).append(" (").append(movie.getGenre()).append(", ").append(movie.getDurationInMinutes()).append(" minutes)\n");
+                    result.append(StringUtils.capitalize(movies.get(i).getTitle())).append(" (")
+                            .append(movies.get(i).getGenre()).append(", ")
+                            .append(movies.get(i).getDurationInMinutes()).append(" minutes)\n");
                 }
             }
             return result.toString();

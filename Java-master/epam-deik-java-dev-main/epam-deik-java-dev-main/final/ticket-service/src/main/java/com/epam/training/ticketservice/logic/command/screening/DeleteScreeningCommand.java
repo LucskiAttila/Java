@@ -36,17 +36,20 @@ public class DeleteScreeningCommand {
     private Room room;
     private Screening screening;
 
-    private String invalid_error;
-    private String permission_error;
+    private String invalidError;
+    private String permissionError;
 
-    private Date startsDateTime_date;
+    private Date startsDateTimeFormatDate;
 
     private final ScreeningRepository screeningRepository;
     private final MovieRepository movieRepository;
     private final RoomRepository roomRepository;
     private final UserRepository userRepository;
 
-    public DeleteScreeningCommand(ScreeningRepository screeningRepository, MovieRepository movieRepository, RoomRepository roomRepository, UserRepository userRepository) {
+    public DeleteScreeningCommand(ScreeningRepository screeningRepository,
+                                  MovieRepository movieRepository,
+                                  RoomRepository roomRepository,
+                                  UserRepository userRepository) {
         this.screeningRepository = screeningRepository;
         this.movieRepository = movieRepository;
         this.roomRepository = roomRepository;
@@ -59,33 +62,33 @@ public class DeleteScreeningCommand {
                 if (check(title, roomName)) {
                     formatDate(startsDateTime);
                     if (checkDateValid(startsDateTime)) {
-                    if (isValid()) {
-                        delete();
-                        return "ok";
-                    } else {
-                        return "exist";
-                    }
+                        if (isValid()) {
+                            delete();
+                            return "ok";
+                        } else {
+                            return "exist";
+                        }
                     } else {
                         return "invalid";
                     }
                 } else {
-                    return invalid_error;
+                    return invalidError;
                 }
             } else {
                 return "format";
             }
         } else {
-            return permission_error;
+            return permissionError;
         }
     }
 
     private boolean checkDateValid(String startsDateTime) {
-        return startsDateTime.equals(new SimpleDateFormat(dateFormat).format(startsDateTime_date));
+        return startsDateTime.equals(new SimpleDateFormat(dateFormat).format(startsDateTimeFormatDate));
     }
 
     private void formatDate(String startsDateAndTime) {
         try {
-            startsDateTime_date = new SimpleDateFormat(dateFormat).parse(startsDateAndTime);
+            startsDateTimeFormatDate = new SimpleDateFormat(dateFormat).parse(startsDateAndTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -98,15 +101,15 @@ public class DeleteScreeningCommand {
     private boolean check(String title, String roomName) {
         room = roomRepository.findByRoomName(roomName);
         movie = movieRepository.findByTitle(title);
-        invalid_error = "";
+        invalidError = "";
         if (room == null) {
-            invalid_error += roomName;
+            invalidError += roomName;
             if (movie == null) {
-                invalid_error += " " + title;
+                invalidError += " " + title;
             }
             return false;
         } else if (movie == null) {
-            invalid_error += title;
+            invalidError += title;
             return false;
         }
         return true;
@@ -121,20 +124,18 @@ public class DeleteScreeningCommand {
         if (user != null) {
             if (user.getIsAdmin()) {
                 return true;
-            }
-            else {
-                permission_error = "admin";
+            } else {
+                permissionError = "admin";
                 return false;
             }
-        }
-        else {
-            permission_error = "sign";
+        } else {
+            permissionError = "sign";
             return false;
         }
     }
 
     private boolean isValid() {
-        screening = screeningRepository.findByMovieAndRoomAndStartsDateTime(movie, room, startsDateTime_date);
+        screening = screeningRepository.findByMovieAndRoomAndStartsDateTime(movie, room, startsDateTimeFormatDate);
         return screening != null;
     }
 }

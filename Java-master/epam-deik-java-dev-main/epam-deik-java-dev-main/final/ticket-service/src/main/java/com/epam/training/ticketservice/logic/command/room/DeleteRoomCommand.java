@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DeleteRoomCommand {
 
-    private String permission_error;
+    private String permissionError;
     private Room room;
 
     private final RoomRepository roomRepository;
@@ -29,7 +29,7 @@ public class DeleteRoomCommand {
                 return "exist";
             }
         } else {
-            return permission_error;
+            return permissionError;
         }
     }
 
@@ -42,14 +42,12 @@ public class DeleteRoomCommand {
         if (user != null) {
             if (user.getIsAdmin()) {
                 return true;
-            }
-            else {
-                permission_error = "admin";
+            } else {
+                permissionError = "admin";
                 return false;
             }
-        }
-        else {
-            permission_error = "sign";
+        } else {
+            permissionError = "sign";
             return false;
         }
     }

@@ -19,9 +19,11 @@ public class CreateScreeningCommandHandler {
         String result = createScreeningCommand.operate(title, roomName, startsDateTime);
         switch (result) {
             case "ok":
-                return StringUtils.capitalize(title) + " " +StringUtils.capitalize(roomName) + " " + startsDateTime  + " screening is successfully created";
+                return StringUtils.capitalize(title) + " " + StringUtils.capitalize(roomName)
+                        + " " + startsDateTime  + " screening is successfully created";
             case "exist":
-                return StringUtils.capitalize(title) + " " +StringUtils.capitalize(roomName) + " " + startsDateTime  + " screening is already exists";
+                return StringUtils.capitalize(title) + " " + StringUtils.capitalize(roomName)
+                        + " " + startsDateTime  + " screening is already exists";
             case "sign":
                 return "You aren't signed in";
             case "admin":

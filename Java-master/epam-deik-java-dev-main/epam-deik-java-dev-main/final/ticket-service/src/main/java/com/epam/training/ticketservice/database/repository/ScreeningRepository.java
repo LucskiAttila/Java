@@ -1,6 +1,9 @@
 package com.epam.training.ticketservice.database.repository;
 
-import com.epam.training.ticketservice.database.entity.*;
+import com.epam.training.ticketservice.database.entity.Movie;
+import com.epam.training.ticketservice.database.entity.Room;
+import com.epam.training.ticketservice.database.entity.Screening;
+import com.epam.training.ticketservice.database.entity.ScreeningId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Date;

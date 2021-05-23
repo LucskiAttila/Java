@@ -20,7 +20,7 @@ public class SignInCommand  {
 
     public String operate(String username, String password) {
         if (isNoOneSignedIn()) {
-            if(isValid(username)) {
+            if (isValid(username)) {
                 if (passwordOk(password)) {
                     List<Book> books = user.getBook();
                     userRepository.delete(user);

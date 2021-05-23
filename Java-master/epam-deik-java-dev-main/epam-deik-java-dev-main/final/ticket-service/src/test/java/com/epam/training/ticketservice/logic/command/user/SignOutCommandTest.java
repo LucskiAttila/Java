@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SignOutCommandTest {
 
     @Test
-    public void testOperateShouldReturnSignWhenUserAlreadySignedIn() {
+    public void testOperateShouldReturnSignWhenUserNoSignedIn() {
         // Given
         UserRepository userRepository = Mockito.mock(UserRepository.class);
 

@@ -31,7 +31,7 @@ public class DescribeAccountCommand {
 
     public List<Object> operate() {
         List<Object> result = new ArrayList<>();
-        if (iSUserSignedIn()) {
+        if (isUserSignedIn()) {
             if (user.getIsAdmin()) {
                 result.add("admin");
                 result.add(user.getUserName());
@@ -49,7 +49,7 @@ public class DescribeAccountCommand {
         }
     }
 
-    private boolean iSUserSignedIn() {
+    private boolean isUserSignedIn() {
         user = userRepository.findByIsSigned(true);
         return user != null;
     }

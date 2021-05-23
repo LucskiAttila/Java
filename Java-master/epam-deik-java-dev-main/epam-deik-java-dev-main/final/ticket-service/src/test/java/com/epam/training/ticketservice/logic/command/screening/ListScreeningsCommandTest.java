@@ -27,5 +27,6 @@ class ListScreeningsCommandTest {
 
         // Then
         assertEquals(Collections.emptyList(), result);
+        Mockito.verify(screeningRepository).findAll();
     }
 }

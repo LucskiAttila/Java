@@ -15,7 +15,7 @@ import java.util.List;
 public class CreateMovieCommand {
 
     private String badString;
-    private String permission_error;
+    private String permissionError;
 
     private final UserRepository userRepository;
     private final MovieRepository movieRepository;
@@ -38,8 +38,8 @@ public class CreateMovieCommand {
         if (hasPermission()) {
             if (isConvert(durationInMinutes)) {
                 if (!isValid(title)) {
-                    int durationInMinutes_int = convertDurationInMinutes(durationInMinutes);
-                    save(title, genre, durationInMinutes_int, new ArrayList<PriceComponent>());
+                    int durationInMinutesFormatInt = convertDurationInMinutes(durationInMinutes);
+                    save(title, genre, durationInMinutesFormatInt, new ArrayList<PriceComponent>());
                     return "ok";
                 } else {
                     return "exist";
@@ -48,7 +48,7 @@ public class CreateMovieCommand {
                 return badString;
             }
         } else {
-            return permission_error;
+            return permissionError;
         }
     }
 
@@ -57,20 +57,20 @@ public class CreateMovieCommand {
         if (user != null) {
             if (user.getIsAdmin()) {
                 return true;
-            }
-            else {
-                permission_error = "admin";
+            } else {
+                permissionError = "admin";
                 return false;
             }
-        }
-        else {
-            permission_error = "sign";
+        } else {
+            permissionError = "sign";
             return false;
         }
     }
 
-    private void save(String title, String genre, int durationInMinutes_int, ArrayList<PriceComponent> components) {
-        movieRepository.save(new Movie(title, genre, durationInMinutes_int, components));
+    private void save(String title, String genre,
+                      int durationInMinutesFormatInt,
+                      ArrayList<PriceComponent> components) {
+        movieRepository.save(new Movie(title, genre, durationInMinutesFormatInt, components));
     }
 
     private boolean isValid(String title) {
@@ -82,10 +82,10 @@ public class CreateMovieCommand {
         return emptyString.equals(badString);
     }
 
-    private String validConvertToInt(String number_str) {
-        for (int i = 0; i < number_str.length(); i++) {
-            if (!digits.contains(number_str.charAt(i))) {
-                return String.valueOf(number_str.charAt(i));
+    private String validConvertToInt(String numberFormatStr) {
+        for (int i = 0; i < numberFormatStr.length(); i++) {
+            if (!digits.contains(numberFormatStr.charAt(i))) {
+                return String.valueOf(numberFormatStr.charAt(i));
             }
         }
         return emptyString;

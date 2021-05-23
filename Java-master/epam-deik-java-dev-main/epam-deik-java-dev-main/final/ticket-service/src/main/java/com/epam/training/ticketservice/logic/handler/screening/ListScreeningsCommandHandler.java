@@ -37,9 +37,17 @@ public class ListScreeningsCommandHandler {
             for (int i = 0; i < screenings.size(); i++) {
                 Movie movie = screenings.get(i).getMovie();
                 if (i == screenings.size() - 1) {
-                    result.append(StringUtils.capitalize(movie.getTitle())).append(" (").append(movie.getGenre()).append(", ").append(movie.getDurationInMinutes()).append(" minutes), screened in room ").append(screenings.get(i).getRoom().getRoomName()).append(", at ").append(new SimpleDateFormat(dateFormat).format(screenings.get(i).getStartsDateTime()));
+                    result.append(StringUtils.capitalize(movie.getTitle())).append(" (")
+                            .append(movie.getGenre()).append(", ").append(movie.getDurationInMinutes())
+                            .append(" minutes), screened in room ").append(screenings.get(i).getRoom().getRoomName())
+                            .append(", at ").append(new SimpleDateFormat(dateFormat).format(screenings.get(i)
+                            .getStartsDateTime()));
                 } else {
-                    result.append(StringUtils.capitalize(movie.getTitle())).append(" (").append(movie.getGenre()).append(", ").append(movie.getDurationInMinutes()).append(" minutes), screened in room ").append(screenings.get(i).getRoom().getRoomName()).append(", at ").append(new SimpleDateFormat(dateFormat).format(screenings.get(i).getStartsDateTime())).append("\n");
+                    result.append(StringUtils.capitalize(movie.getTitle())).append(" (")
+                            .append(movie.getGenre()).append(", ").append(movie.getDurationInMinutes())
+                            .append(" minutes), screened in room ").append(screenings.get(i).getRoom().getRoomName())
+                            .append(", at ").append(new SimpleDateFormat(dateFormat).format(screenings.get(i)
+                            .getStartsDateTime())).append("\n");
                 }
             }
             return result.toString();

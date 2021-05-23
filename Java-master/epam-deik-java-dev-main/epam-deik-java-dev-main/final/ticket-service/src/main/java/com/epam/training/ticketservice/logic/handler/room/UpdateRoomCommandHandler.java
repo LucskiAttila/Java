@@ -19,15 +19,15 @@ public class UpdateRoomCommandHandler {
         String result = updateRoomCommand.operate(roomName, numberOfRowsOfChairs, numberOfColumnsOfChairs);
         switch (result) {
             case "first":
-                return "You successfully updated number of rows of charis of " + roomName;
-            case "second":
                 return "You successfully updated number of columns of charis of " + roomName;
+            case "second":
+                return "You successfully updated number of rows of charis of " + roomName;
             case "all":
                 return "You add same properties";
             case "":
                 return "You successfully updated all properties of " + roomName;
             case "exist":
-                return StringUtils.capitalize(roomName) + " room is already exists";
+                return StringUtils.capitalize(roomName) + " room doesn't exists";
             case "sign":
                 return "You aren't signed in";
             case "admin":

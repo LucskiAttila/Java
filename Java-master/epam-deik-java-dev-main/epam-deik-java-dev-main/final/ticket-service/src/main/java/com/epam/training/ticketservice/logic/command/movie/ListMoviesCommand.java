@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ListMoviesCommand{
+public class ListMoviesCommand {
 
     private final MovieRepository movieRepository;
 

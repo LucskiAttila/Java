@@ -15,7 +15,7 @@ import java.util.List;
 public class CreateRoomCommand {
 
     private String badString;
-    private String permission_error;
+    private String permissionError;
 
     private final UserRepository userRepository;
     private final RoomRepository roomRepository;
@@ -25,6 +25,10 @@ public class CreateRoomCommand {
     @Value("#{'${DIGITS}'.split(',')}")
     List<Character> digits;
 
+    public void setDigits(List<Character> digits) {
+        this.digits = digits;
+    }
+
     public CreateRoomCommand(UserRepository userRepository, RoomRepository roomRepository) {
         this.userRepository = userRepository;
         this.roomRepository = roomRepository;
@@ -33,18 +37,20 @@ public class CreateRoomCommand {
     public String operate(String roomName, String numberOfRowsOfChairs, String numberOfColumnsOfChairs) {
         if (hasPermission()) {
             if (isConvert(numberOfRowsOfChairs, numberOfColumnsOfChairs)) {
-                if (!isValid(roomName)) {
-                    int numberOfRowsOfChairs_int = convertNumberOfChairs(numberOfRowsOfChairs);
-                    int numberOfColumnsOfChairs_int = convertNumberOfChairs(numberOfColumnsOfChairs);
-                    roomRepository.save(new Room(roomName, numberOfRowsOfChairs_int, numberOfColumnsOfChairs_int, new ArrayList<PriceComponent>()));
+                if (isValid(roomName)) {
+                    int numberOfRowsOfChairsFormatInt = convertNumberOfChairs(numberOfRowsOfChairs);
+                    int numberOfColumnsOfChairsFormatInt = convertNumberOfChairs(numberOfColumnsOfChairs);
+                    roomRepository.save(new Room(roomName, numberOfRowsOfChairsFormatInt,
+                            numberOfColumnsOfChairsFormatInt, new ArrayList<PriceComponent>()));
                     return "ok";
-                } else
+                } else {
                     return "exist";
+                }
             } else {
                 return badString;
             }
         } else {
-            return permission_error;
+            return permissionError;
         }
     }
 
@@ -53,20 +59,18 @@ public class CreateRoomCommand {
         if (user != null) {
             if (user.getIsAdmin()) {
                 return true;
-            }
-            else {
-                permission_error = "admin";
+            } else {
+                permissionError = "admin";
                 return false;
             }
-        }
-        else {
-            permission_error = "sign";
+        } else {
+            permissionError = "sign";
             return false;
         }
     }
 
     private boolean isValid(String roomName) {
-        return roomRepository.findByRoomName(roomName) != null;
+        return roomRepository.findByRoomName(roomName) == null;
     }
 
     private boolean isConvert(String numberOfRowsOfChairs, String numberOfColumnsOfChairs) {

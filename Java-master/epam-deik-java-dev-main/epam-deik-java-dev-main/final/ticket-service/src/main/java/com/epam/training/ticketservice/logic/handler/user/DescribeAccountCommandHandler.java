@@ -33,7 +33,7 @@ public class DescribeAccountCommandHandler {
         List<Object> result = describeAccountCommand.operate();
         if ("sign".equals(result.get(0))) {
             return "You are not signed in";
-        } else if ("admin".equals(result.get(0))){
+        } else if ("admin".equals(result.get(0))) {
             return "Signed in with privileged account '" + result.get(1) + "'";
         } else {
             return "Signed in with account '" + result.get(1) + "'\n" + form(result.get(2), result.get(3));
@@ -48,9 +48,19 @@ public class DescribeAccountCommandHandler {
         result.append("Your previous bookings are\n");
         for (int i = 0; i < ((List<Book>) books).size(); i++) {
             if (i == (((List<Book>)books).size() - 1)) {
-                result.append("Seats " + formatSeats(((List<Book>)books).get(i).getSeats()) + " on " + ((List<Book>)books).get(i).getScreening().getMovie().getTitle() + " in room " + ((List<Book>)books).get(i).getScreening().getRoom().getRoomName() + " starting at " + new SimpleDateFormat(dateFormat).format(((List<Book>)books).get(i).getScreening().getStartsDateTime()) + " for " + ((List<Book>)books).get(i).getPrice() + " " + currency);
+                result.append("Seats " + formatSeats(((List<Book>)books).get(i).getSeats()) + " on "
+                        + ((List<Book>)books).get(i).getScreening().getMovie().getTitle() + " in room "
+                        + ((List<Book>)books).get(i).getScreening().getRoom().getRoomName() + " starting at "
+                        + new SimpleDateFormat(dateFormat).format(((List<Book>)books).get(i)
+                        .getScreening().getStartsDateTime())
+                        + " for " + ((List<Book>)books).get(i).getPrice() + " " + currency);
             } else {
-                result.append("Seats " + formatSeats(((List<Book>)books).get(i).getSeats()) + " on " + ((List<Book>)books).get(i).getScreening().getMovie().getTitle() + " in room " + ((List<Book>)books).get(i).getScreening().getRoom().getRoomName() + " starting at " + new SimpleDateFormat(dateFormat).format(((List<Book>)books).get(i).getScreening().getStartsDateTime()) + " for " + ((List<Book>)books).get(i).getPrice() + " " + currency + "\n");
+                result.append("Seats " + formatSeats(((List<Book>)books).get(i).getSeats()) + " on "
+                        + ((List<Book>)books).get(i).getScreening().getMovie().getTitle() + " in room "
+                        + ((List<Book>)books).get(i).getScreening().getRoom().getRoomName() + " starting at "
+                        + new SimpleDateFormat(dateFormat).format(((List<Book>)books).get(i)
+                        .getScreening().getStartsDateTime())
+                        + " for " + ((List<Book>)books).get(i).getPrice() + " " + currency + "\n");
             }
         }
         return result.toString();
@@ -58,9 +68,10 @@ public class DescribeAccountCommandHandler {
 
     public String formatSeats(List<Seat> seats) {
         StringBuilder result = new StringBuilder();
-        for(int i = 0; i < seats.size(); i++) {
-            result.append("(").append(seats.get(i).getRow_number()).append(",").append(seats.get(i).getColumn_number()).append(")");
-            if (i != seats.size()-1) {
+        for (int i = 0; i < seats.size(); i++) {
+            result.append("(").append(seats.get(i).getRowNumber()).append(",")
+                    .append(seats.get(i).getColumnNumber()).append(")");
+            if (i != seats.size() - 1) {
                 result.append(", ");
             }
         }

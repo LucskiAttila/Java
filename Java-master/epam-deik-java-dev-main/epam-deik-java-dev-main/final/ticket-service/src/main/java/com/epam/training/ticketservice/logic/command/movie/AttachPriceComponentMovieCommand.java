@@ -17,17 +17,25 @@ public class AttachPriceComponentMovieCommand {
     @Value("${ATTACH_MORE}")
     private boolean canAttachMore;
 
-    private String permission_error;
-    private String invalid_room;
+    private List<PriceComponent> components;
+
+    private String permissionError;
+    private String invalidRoom;
 
     private Movie movie;
     private PriceComponent priceComponent;
+
+    public void setCanAttachMore(boolean canAttachMore) {
+        this.canAttachMore = canAttachMore;
+    }
 
     private final MovieRepository movieRepository;
     private final PriceComponentRepository priceComponentRepository;
     private final UserRepository userRepository;
 
-    public AttachPriceComponentMovieCommand(MovieRepository movieRepository, PriceComponentRepository priceComponentRepository, UserRepository userRepository) {
+    public AttachPriceComponentMovieCommand(MovieRepository movieRepository,
+                                            PriceComponentRepository priceComponentRepository,
+                                            UserRepository userRepository) {
         this.movieRepository = movieRepository;
         this.priceComponentRepository = priceComponentRepository;
         this.userRepository = userRepository;
@@ -36,17 +44,17 @@ public class AttachPriceComponentMovieCommand {
     public String operate(String name, String title) {
         if (hasPermission()) {
             if (isValid(name, title)) {
-                boolean isDuplication = !isComponentValid(name);
+                boolean isDuplication = isComponentValid(name);
                 if (canAttachMore) {
-                    save();
+                    save(title);
                     if (isDuplication) {
-                        return "ok_duplicate";
+                        return "okDuplicate";
                     } else {
                         return "ok";
                     }
                 } else {
                     if (!isDuplication) {
-                        save();
+                        save(title);
                         return "ok";
                     } else {
                         return "more";
@@ -54,41 +62,42 @@ public class AttachPriceComponentMovieCommand {
 
                 }
             } else {
-                return invalid_room;
+                return invalidRoom;
             }
         } else {
-            return permission_error;
+            return permissionError;
         }
     }
 
-    private void save() {
-        List<PriceComponent> components = movie.getComponents();
+    private void save(String title) {
         components.add(priceComponent);
         movieRepository.delete(movie);
-        movieRepository.save(new Movie(movie.getTitle(), movie.getGenre(), movie.getDurationInMinutes(), components));
+        movieRepository.save(new Movie(title, movie.getGenre(), movie.getDurationInMinutes(), components));
     }
 
     private boolean isComponentValid(String name) {
-        for (PriceComponent priceComponent : movie.getComponents()) {
-            if (name.equals(priceComponent.getName())) {
-                return false;
+        components = movie.getComponents();
+        int size = components.size();
+        for (int i = 0; i < size; i++) {
+            if (name.equals(components.get(i).getName())) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     private boolean isValid(String name, String title) {
         movie = movieRepository.findByTitle(title);
         priceComponent = priceComponentRepository.findByName(name);
         if (movie == null) {
-            invalid_room = "movie";
+            invalidRoom = "first";
             if (priceComponent == null) {
-                invalid_room = "all";
+                invalidRoom = "all";
             }
             return false;
         }
         if (priceComponent == null) {
-            invalid_room = "component";
+            invalidRoom = "second";
             return false;
         }
         return true;
@@ -99,14 +108,12 @@ public class AttachPriceComponentMovieCommand {
         if (user != null) {
             if (user.getIsAdmin()) {
                 return true;
-            }
-            else {
-                permission_error = "admin";
+            } else {
+                permissionError = "admin";
                 return false;
             }
-        }
-        else {
-            permission_error = "sign";
+        } else {
+            permissionError = "sign";
             return false;
         }
     }

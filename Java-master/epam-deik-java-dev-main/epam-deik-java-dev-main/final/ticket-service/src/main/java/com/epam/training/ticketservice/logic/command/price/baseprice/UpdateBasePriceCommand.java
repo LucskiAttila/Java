@@ -15,10 +15,14 @@ public class UpdateBasePriceCommand {
     @Value("${DIGITS}")
     List<Character> digits;
 
+    public void setDigits(List<Character> digits) {
+        this.digits = digits;
+    }
+
     protected final String emptyString = "";
 
-    private String permission_error;
-    private String bad_integer;
+    private String permissionError;
+    private String badInteger;
 
     private final BasePriceRepository basePriceRepository;
     private final UserRepository userRepository;
@@ -28,23 +32,23 @@ public class UpdateBasePriceCommand {
         this.userRepository = userRepository;
     }
 
-    public String operate(String base_price) {
-        if(hasPermission()) {
-            if (isConvert(base_price)) {
-                int base_price_int = convertToInt(base_price);
+    public String operate(String basePriceValue) {
+        if (hasPermission()) {
+            if (isConvert(basePriceValue)) {
+                int basePriceFormatInt = convertToInt(basePriceValue);
                 BasePrice basePrice = basePriceRepository.findAll().get(0);
-                if (base_price_int != basePrice.getBase_price()) {
+                if (basePriceFormatInt != basePrice.getBasePriceValue()) {
                     basePriceRepository.delete(basePrice);
-                    basePriceRepository.save(new BasePrice(base_price_int));
+                    basePriceRepository.save(new BasePrice(basePriceFormatInt));
                     return "ok";
                 } else {
                     return "same";
                 }
             } else {
-                return bad_integer;
+                return badInteger;
             }
         } else {
-            return permission_error;
+            return permissionError;
         }
     }
 
@@ -53,27 +57,25 @@ public class UpdateBasePriceCommand {
         if (user != null) {
             if (user.getIsAdmin()) {
                 return true;
-            }
-            else {
-                permission_error = "admin";
+            } else {
+                permissionError = "admin";
                 return false;
             }
-        }
-        else {
-            permission_error = "sign";
+        } else {
+            permissionError = "sign";
             return false;
         }
     }
 
-    private boolean isConvert(String base_price) {
-        bad_integer = validConvertToInt(base_price);
-        return emptyString.equals(bad_integer);
+    private boolean isConvert(String basePriceValue) {
+        badInteger = validConvertToInt(basePriceValue);
+        return emptyString.equals(badInteger);
     }
 
-    private String validConvertToInt(String number_str) {
-        for (int i = 0; i < number_str.length(); i++) {
-            if (!digits.contains(number_str.charAt(i))) {
-                return String.valueOf(number_str.charAt(i));
+    private String validConvertToInt(String numberFormatStr) {
+        for (int i = 0; i < numberFormatStr.length(); i++) {
+            if (!digits.contains(numberFormatStr.charAt(i))) {
+                return String.valueOf(numberFormatStr.charAt(i));
             }
         }
         return emptyString;

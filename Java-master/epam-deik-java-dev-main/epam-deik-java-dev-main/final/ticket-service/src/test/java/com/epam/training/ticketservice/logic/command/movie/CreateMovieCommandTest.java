@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CreateMovieCommandTest {
 
     @Test
-    public void testOperateShouldReturnSignWhenUserAlreadySignedIn() {
+    public void testOperateShouldReturnSignWhenUserNotSignedIn() {
         // Given
         String title = "Title";
         String genre = "Genre";

@@ -123,8 +123,8 @@ class DescribeAccountCommandHandlerTest {
         BDDMockito.given(book.getScreening().getStartsDateTime()).willReturn(date);
         BDDMockito.given(book.getPrice()).willReturn(price);
 
-        BDDMockito.given(seat.getRow_number()).willReturn(rowNumber);
-        BDDMockito.given(seat.getColumn_number()).willReturn(colNumber);
+        BDDMockito.given(seat.getRowNumber()).willReturn(rowNumber);
+        BDDMockito.given(seat.getColumnNumber()).willReturn(colNumber);
 
         BDDMockito.given(describeAccountCommand.operate()).willReturn(results);
 

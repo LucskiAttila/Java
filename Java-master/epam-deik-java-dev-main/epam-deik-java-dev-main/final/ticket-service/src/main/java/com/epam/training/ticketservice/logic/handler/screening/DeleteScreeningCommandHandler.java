@@ -14,14 +14,19 @@ public class DeleteScreeningCommandHandler {
         this.deleteScreeningCommand = deleteScreeningCommand;
     }
 
-    @ShellMethod(value = "Delete screening with the title of the movie, and the name of the room and the start time and date of the screening", key = "delete screening")
+    @ShellMethod(value =
+            "Delete screening with the title of the movie,"
+                    + " and the name of the room and the start time and date of the screening",
+            key = "delete screening")
     public String deleteScreening(String title, String roomName, String startsDateTime) {
         String result = deleteScreeningCommand.operate(title, roomName, startsDateTime);
         switch (result) {
             case "ok":
-                return StringUtils.capitalize(title) + " " +StringUtils.capitalize(roomName) + " " + startsDateTime  + " screening is successfully deleted";
+                return StringUtils.capitalize(title) + " " + StringUtils.capitalize(roomName) + " "
+                        + startsDateTime  + " screening is successfully deleted";
             case "exist":
-                return StringUtils.capitalize(title) + " " +StringUtils.capitalize(roomName) + " " + startsDateTime  + " screening doesn't exists";
+                return StringUtils.capitalize(title) + " " + StringUtils.capitalize(roomName) + " "
+                        + startsDateTime  + " screening doesn't exists";
             case "sign":
                 return "You aren't signed in";
             case "admin":

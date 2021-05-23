@@ -1,7 +1,18 @@
 package com.epam.training.ticketservice.logic.command.book;
 
-import com.epam.training.ticketservice.database.entity.*;
-import com.epam.training.ticketservice.database.repository.*;
+import com.epam.training.ticketservice.database.entity.Movie;
+import com.epam.training.ticketservice.database.entity.Room;
+import com.epam.training.ticketservice.database.entity.Screening;
+import com.epam.training.ticketservice.database.entity.User;
+import com.epam.training.ticketservice.database.entity.Book;
+import com.epam.training.ticketservice.database.entity.Seat;
+import com.epam.training.ticketservice.database.entity.PriceComponent;
+import com.epam.training.ticketservice.database.repository.BookRepository;
+import com.epam.training.ticketservice.database.repository.MovieRepository;
+import com.epam.training.ticketservice.database.repository.RoomRepository;
+import com.epam.training.ticketservice.database.repository.ScreeningRepository;
+import com.epam.training.ticketservice.database.repository.UserRepository;
+import com.epam.training.ticketservice.database.repository.BasePriceRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,22 +36,34 @@ public class BookCommand {
     @Value("${CURRENCY}")
     String currency;
 
-    @Value("${DEFAULT_BASE_PRICE}")
-    int default_base_price;
+    @Value("${DATE_FORMAT_VALID}")
+    String dateFormatValid;
 
     @Value("${DIGITS}")
-    List<Character> digits_list;
+    List<Character> digitsList;
 
-    @Value("${ADMINISTRATOR_USERNAME}")
-    String admin_username;
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 
-    @Value("${ADMINISTRATOR_PASSWORD}")
-    String admin_password;
+    public void setDigitsList(List<Character> digitsList) {
+        this.digitsList = digitsList;
+    }
+
+    public void setDateFormatValid(String dateFormatValid) {
+        this.dateFormatValid = dateFormatValid;
+    }
 
     @Value("${DATE_FORMAT}")
     String dateFormat;
 
-    public BookCommand(BookRepository bookRepository, ScreeningRepository screeningRepository, RoomRepository roomRepository, MovieRepository movieRepository, UserRepository userRepository, BasePriceRepository basePriceRepository) {
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    public BookCommand(BookRepository bookRepository, ScreeningRepository screeningRepository,
+                       RoomRepository roomRepository, MovieRepository movieRepository,
+                       UserRepository userRepository, BasePriceRepository basePriceRepository) {
         this.bookRepository = bookRepository;
         this.screeningRepository = screeningRepository;
         this.roomRepository = roomRepository;
@@ -54,180 +77,190 @@ public class BookCommand {
     private Screening screening;
 
     @Transactional
-    public String operate(String title, String roomName, String startsDateAndTime, String seats, boolean shouldSave) {
+    public List<Object> operate(String title, String roomName, String startsDateAndTime,
+                                String seats, boolean shouldSave) {
+        List<Object> result = new ArrayList<Object>();
         User user = userRepository.findByIsSigned(true);
-        if(!shouldSave && user == null) {
+        if (!shouldSave && user == null) {
             user = userRepository.findByIsAdmin(true);
-            //user = userRepository.save(new User(admin_username, admin_password, true, false, Collections.<Book>emptyList()));
         }
         if (user == null && shouldSave) {
-            return "You are not signed in";
+            result.add("sign");
+            return result;
         } else {
             String username = user.getUserName();
             if (user.getIsAdmin() && shouldSave) {
-                return "Signed in with privileged account " + username;
+                result.add("admin");
+                result.add(username);
+                return result;
             } else {
                 movie = movieRepository.findByTitle(title);
-                if(movie == null) {
-                    return "Invalid movie title";
+                if (movie == null) {
+                    result.add("movie");
+                    return result;
                 }
                 room = roomRepository.findByRoomName(roomName);
-                if(room == null) {
-                    return "Invalid room name";
+                if (room == null) {
+                    result.add("room");
+                    return result;
                 }
-                Date startsDateAndTime_date;
+                if (!startsDateAndTime.matches(dateFormatValid)) {
+                    result.add("format");
+                    return result;
+                }
+                Date startsDateAndTimeFormatDate = null;
                 try {
-                    startsDateAndTime_date = new SimpleDateFormat(dateFormat).parse(startsDateAndTime);
+                    startsDateAndTimeFormatDate = new SimpleDateFormat(dateFormat).parse(startsDateAndTime);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                    return "Invalid date format";
                 }
-                if (!new SimpleDateFormat(dateFormat).format(startsDateAndTime_date).equals(startsDateAndTime)) {
-                    return "Invalid date";
+                String actualDate = new SimpleDateFormat(dateFormat).format(startsDateAndTimeFormatDate);
+                if (!startsDateAndTime.equals(actualDate)) {
+                    result.add("date");
+                    result.add(actualDate);
+                    return result;
                 }
-                screening = screeningRepository.findByMovieAndRoomAndStartsDateTime(movie, room, startsDateAndTime_date);
+                actualDate = null;
+                screening = screeningRepository.findByMovieAndRoomAndStartsDateTime(movie, room,
+                        startsDateAndTimeFormatDate);
                 if (screening == null) {
-                    return "Screen doesn't exist";
+                    result.add("screening");
+                    return result;
                 } else {
                     int rows = room.getNumberOfRowsOfChairs();
                     int cols = room.getNumberOfColumnsOfChairs();
-                    List<Book> books_valid = bookRepository.findByScreening(screening);
+                    List<Book> booksValid = bookRepository.findByScreening(screening);
+                    int size = booksValid.size();
                     List<Seat> validSeats = new ArrayList<Seat>();
-                    for(Book book : books_valid) {
-                        validSeats.addAll(book.getSeats());
-                    }
-                    Result result = convertSeats(seats, validSeats, rows, cols);
-                    String state = result.getState();
-                    switch(state) {
-                        case "ok": {
-                            int price = getPrice(result.getSeats().size());
-                            if(shouldSave) {
-                                Book book = new Book(screening, result.getSeats(), price);
-                                bookRepository.save(book);
-                                //String userName = user.getUserName();
-                                String password = user.getPassword();
-                                List<Book> books = user.getBook();
-                                books.add(book);
-                                userRepository.delete(user);
-                                userRepository.save(new User(username, password, false, true, books));
-                                return "Seats booked: " + formatSeats(result.getSeats()) + "; the price for this booking is " + price + " " + currency;
-                            } else {
-                                return "The price for this booking would be " + price + " " + currency;
-                            }
-                        }
-                        case "exist": {
-                            Seat bad_seat = result.getSeats().get(0);
-                            return  "Seat " + bad_seat.getRow_number() + ", " + bad_seat.getColumn_number() + "does not exist";
-                        }
-                        case "taken": {
-                            Seat bad_seat = result.getSeats().get(0);
-                            return "Seat " + bad_seat.getRow_number() + ", " + bad_seat.getColumn_number() + "is already taken";
-                        }
-                        default: {
-                           return "You give " + state;
+                    for (int i = 0; i < size; i++) {
+                        List<Seat> actual = booksValid.get(i).getSeats();
+                        int actualSize = actual.size();
+                        for (int j = 0; j < actualSize; j++) {
+                            validSeats.add(actual.get(j));
                         }
                     }
-                    //System.gc();
+                    List<Object> state = convertSeats(seats, validSeats, rows, cols);
+                    if (("ok").equals(state.get(0))) {
+                        List<Seat> list = (List<Seat>) state.get(1);
+                        int price = getPrice((list).size());
+                        if (shouldSave) {
+                            Book book = new Book(screening, list, price);
+                            bookRepository.save(book);
+                            String password = user.getPassword();
+                            List<Book> books = user.getBook();
+                            books.add(book);
+                            userRepository.delete(user);
+                            userRepository.save(new User(username, password, false, true, books));
+                            state.set(0, "book");
+                            state.add(price);
+                            state.add(currency);
+                        } else {
+                            state.clear();
+                            state.add("show");
+                            state.add(price);
+                            state.add(currency);
+                        }
+                    }
+                    return state;
                 }
             }
         }
     }
 
-    public int getPrice(int count) {
-        int base_price = getBasePrice();
-        int components_price = getComponentsPrice();
-        return count * (base_price + components_price);
+    private int getPrice(int count) {
+        int basePrice = getBasePrice();
+        int componentsPrice = getComponentsPrice();
+        return count * (basePrice + componentsPrice);
     }
 
-    public int getComponentsPrice() {
-        int room_component_price = getComponentPrice(room.getComponents());
-        int movie_component_price = getComponentPrice(movie.getComponents());
-        int screening_component_price = getComponentPrice(screening.getComponents());
-        return room_component_price + movie_component_price + screening_component_price;
+    private int getComponentsPrice() {
+        int roomComponentPrice = getComponentPrice(room.getComponents());
+        int movieComponentPrice = getComponentPrice(movie.getComponents());
+        int screeningComponentPrice = getComponentPrice(screening.getComponents());
+        return roomComponentPrice + movieComponentPrice + screeningComponentPrice;
     }
 
-    public int getComponentPrice(List<PriceComponent> priceComponents) {
+    private int getComponentPrice(List<PriceComponent> priceComponents) {
         int result = 0;
-        for (PriceComponent priceComponent : priceComponents) {
-            result += priceComponent.getPrice();
+        int size = priceComponents.size();
+        for (int i = 0; i < size; i++) {
+            result += priceComponents.get(i).getPrice();
         }
         return result;
     }
 
-    public int getBasePrice() {
-        List<BasePrice> price = (List<BasePrice>) basePriceRepository.findAll();
-        if(price.isEmpty()) {
-            basePriceRepository.save(new BasePrice(default_base_price));
-            return default_base_price;
-        } else {
-            return price.get(0).getBase_price();
-        }
+    private int getBasePrice() {
+        return basePriceRepository.findAll().get(0).getBasePriceValue();
     }
 
-    public String formatSeats(List<Seat> seats) {
-        StringBuilder result = new StringBuilder();
-        for(int i = 0; i < seats.size(); i++) {
-            result.append("(").append(seats.get(i).getRow_number()).append(",").append(seats.get(i).getColumn_number()).append(")");
-            if (i != seats.size()-1) {
-                result.append(", ");
-            }
-        }
-        return result.toString();
-    }
-
-    public Result convertSeats(String seats, List<Seat> validSeats, int rows, int cols) {
+    private List<Object> convertSeats(String seats, List<Seat> validSeats, int rows, int cols) {
+        int minSeatRowNumber = 1;
+        int minSeatColumnNUmber = 1;
         seats += " ";
-        List<Character> digits = digits_list;
         List<Seat> seatList = new ArrayList<Seat>();
-        String row_str = "";
-        String col_str = "";
-        int number_of_commas = 0;
+        List<Object> result = new ArrayList<Object>();
+        String rowStr = "";
+        String colStr = "";
+        int numberOfCommas = 0;
         boolean wasComma = false;
-        for (int i = 0; i < seats.length(); i++){
+        int length = seats.length();
+        for (int i = 0; i < length; i++) {
             if (seats.charAt(i) == ',') {
                 wasComma = true;
-                number_of_commas += 1;
+                numberOfCommas += 1;
+            } else if (numberOfCommas > 1) {
+                seatList.clear();
+                result.add(",");
+                result.add(i - 1);
+                return result;
             } else if (seats.charAt(i) == ' ') {
-                if ("".equals(row_str)) {
+                if ("".equals(rowStr)) {
                     seatList.clear();
-                    return new Result(seatList, "bad input: " + "no row");
-                } else if ("".equals(col_str)) {
+                    result.add("row");
+                    return result;
+                } else if ("".equals(colStr)) {
                     seatList.clear();
-                    return new Result(seatList, "bad input: " + "no column");
+                    result.add("column");
+                    return result;
                 } else {
-                    int row = Integer.parseInt(row_str);
-                    int col = Integer.parseInt(col_str);
-                    number_of_commas = 0;
-                    row_str = "";
-                    col_str = "";
+                    numberOfCommas = 0;
                     wasComma = false;
+                    int row = Integer.parseInt(rowStr);
+                    int col = Integer.parseInt(colStr);
+                    rowStr = "";
+                    colStr = "";
                     Seat seat = new Seat(row, col);
-                    if ((row > rows && col > cols) || (row < 0 && col < 0)) {
+                    if ((row > rows || col > cols) || (row < minSeatRowNumber || col < minSeatColumnNUmber)) {
                         seatList.clear();
                         seatList.add(seat);
-                        return new Result(seatList, "exist");
-                    } else if (validSeats.contains(seat)){
+                        result.add("exist");
+                        result.add(seat);
+                        return result;
+                    } else if (validSeats.contains(seat)) {
                         seatList.clear();
                         seatList.add(seat);
-                        return new Result(seatList, "taken");
-                    } else{
+                        result.add("taken");
+                        result.add(seat);
+                        return result;
+                    } else {
                         seatList.add(seat);
                     }
                 }
-            } else if (digits.contains(seats.charAt(i))) {
+            } else if (digitsList.contains(seats.charAt(i))) {
                 if (wasComma) {
-                    col_str += seats.charAt(i);
+                    colStr += seats.charAt(i);
                 } else {
-                    row_str += seats.charAt(i);
+                    rowStr += seats.charAt(i);
                 }
-            } else if (number_of_commas > 1) {
-                seatList.clear();
-                return new Result(seatList, "bad input: " + "too much ,");
             } else {
                 seatList.clear();
-                return new Result(seatList, "bad input: " + seats.charAt(i));
+                result.add(String.valueOf(seats.charAt(i)));
+                result.add(i);
+                return result;
             }
         }
-        return new Result(seatList, "ok");
+        result.add("ok");
+        result.add(seatList);
+        return result;
     }
 }

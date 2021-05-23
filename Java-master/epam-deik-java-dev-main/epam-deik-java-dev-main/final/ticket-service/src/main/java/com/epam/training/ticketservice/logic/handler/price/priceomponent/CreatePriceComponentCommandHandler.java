@@ -15,7 +15,7 @@ public class CreatePriceComponentCommandHandler {
     }
 
     @ShellMethod(value = "create price component with name and price", key = "create price component")
-    public String UpdateBasePrice(String name, String price) {
+    public String createPriceComponent(String name, String price) {
         String result = createPriceComponentCommand.operate(name, price);
         switch (result) {
             case "ok":

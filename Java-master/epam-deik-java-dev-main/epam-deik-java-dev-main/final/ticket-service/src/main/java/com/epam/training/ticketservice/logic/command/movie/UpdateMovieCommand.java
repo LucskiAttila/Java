@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 public class UpdateMovieCommand {
 
-    private String permission_error;
+    private String permissionError;
     private String badString;
 
     private Movie movie;
@@ -25,6 +25,10 @@ public class UpdateMovieCommand {
     @Value("#{'${DIGITS}'.split(',')}")
     List<Character> digits;
 
+    public void setDigits(List<Character> digits) {
+        this.digits = digits;
+    }
+
     public UpdateMovieCommand(MovieRepository movieRepository, UserRepository userRepository) {
         this.movieRepository = movieRepository;
         this.userRepository = userRepository;
@@ -34,10 +38,10 @@ public class UpdateMovieCommand {
         if (hasPermission()) {
             if (isConvert(durationInMinutes)) {
                 if (isValid(title)) {
-                    int durationInMinutes_int = convertDurationInMinutes(durationInMinutes);
-                    String matching = getNotDifferent(movie, genre, durationInMinutes_int);
+                    int durationInMinutesFormatInt = convertDurationInMinutes(durationInMinutes);
+                    String matching = getNotDifferent(movie, genre, durationInMinutesFormatInt);
                     if (!"all".equals(matching)) {
-                        update(genre, durationInMinutes_int);
+                        update(genre, durationInMinutesFormatInt);
                     }
                     return matching;
                 } else {
@@ -47,7 +51,7 @@ public class UpdateMovieCommand {
                 return badString;
             }
         } else {
-            return permission_error;
+            return permissionError;
         }
     }
 
@@ -56,14 +60,12 @@ public class UpdateMovieCommand {
         if (user != null) {
             if (user.getIsAdmin()) {
                 return true;
-            }
-            else {
-                permission_error = "admin";
+            } else {
+                permissionError = "admin";
                 return false;
             }
-        }
-        else {
-            permission_error = "sign";
+        } else {
+            permissionError = "sign";
             return false;
         }
     }
@@ -83,10 +85,10 @@ public class UpdateMovieCommand {
         return emptyString.equals(badString);
     }
 
-    private String validConvertToInt(String number_str) {
-        for (int i = 0; i < number_str.length(); i++) {
-            if (!digits.contains(number_str.charAt(i))) {
-                return String.valueOf(number_str.charAt(i));
+    private String validConvertToInt(String numberFormatStr) {
+        for (int i = 0; i < numberFormatStr.length(); i++) {
+            if (!digits.contains(numberFormatStr.charAt(i))) {
+                return String.valueOf(numberFormatStr.charAt(i));
             }
         }
         return emptyString;
@@ -98,13 +100,12 @@ public class UpdateMovieCommand {
 
     private String getNotDifferent(Movie movie, String genre, int durationInMinutes) {
         String result = emptyString;
-        if(movie.getGenre().equals(genre)) {
+        if (movie.getGenre().equals(genre)) {
             result = "first";
-            if(String.valueOf(movie.getDurationInMinutes()).equals(durationInMinutes)) {
+            if (movie.getDurationInMinutes() == durationInMinutes) {
                 result = "all";
             }
-        }
-        else if(String.valueOf(movie.getDurationInMinutes()).equals(durationInMinutes)) {
+        } else if (movie.getDurationInMinutes() == durationInMinutes) {
             result = "second";
         }
         return result;

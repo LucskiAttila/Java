@@ -11,7 +11,8 @@ public class ScreeningId implements Serializable {
     private String room;
     private Date startsDateTime;
 
-    protected ScreeningId() {}
+    protected ScreeningId() {
+    }
 
     public ScreeningId(String movie, String room, Date startsDateTime) {
         this.movie = movie;
@@ -21,10 +22,15 @@ public class ScreeningId implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ScreeningId that = (ScreeningId) o;
-        return Objects.equals(movie, that.movie) && Objects.equals(room, that.room) && Objects.equals(startsDateTime, that.startsDateTime);
+        return Objects.equals(movie, that.movie) && Objects.equals(room, that.room)
+                && Objects.equals(startsDateTime, that.startsDateTime);
     }
 
     @Override

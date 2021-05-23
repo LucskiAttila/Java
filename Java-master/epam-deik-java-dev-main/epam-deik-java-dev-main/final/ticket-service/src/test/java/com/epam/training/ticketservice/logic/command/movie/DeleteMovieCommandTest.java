@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DeleteMovieCommandTest {
 
     @Test
-    public void testOperateShouldReturnSignWhenUserAlreadySignedIn() {
+    public void testOperateShouldReturnSignWhenUserNotSignedIn() {
         // Given
         String title = "Title";
         MovieRepository movieRepository = Mockito.mock(MovieRepository.class);
@@ -55,7 +55,7 @@ class DeleteMovieCommandTest {
     }
 
     @Test
-    public void testOperateShouldReturnExistWhenMovieAlreadyExist() {
+    public void testOperateShouldReturnExistWhenMovieNotExist() {
         // Given
         String title = "Title";
         MovieRepository movieRepository = Mockito.mock(MovieRepository.class);

@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 public class UpdateRoomCommand {
 
-    private String permission_error;
+    private String permissionError;
     private String badString;
 
     private Room room;
@@ -25,6 +25,10 @@ public class UpdateRoomCommand {
     @Value("#{'${DIGITS}'.split(',')}")
     List<Character> digits;
 
+    public void setDigits(List<Character> digits) {
+        this.digits = digits;
+    }
+
     public UpdateRoomCommand(RoomRepository roomRepository, UserRepository userRepository) {
         this.roomRepository = roomRepository;
         this.userRepository = userRepository;
@@ -34,11 +38,13 @@ public class UpdateRoomCommand {
         if (hasPermission()) {
             if (isConvert(numberOfRowsOfChairs, numberOfColumnsOfChairs)) {
                 if (isValid(roomName)) {
-                    int numberOfRowsOfChairs_int = convertNumberOfChairs(numberOfRowsOfChairs);
-                    int numberOfColumnsOfChairs_int = convertNumberOfChairs(numberOfColumnsOfChairs);
-                    String matching = getNotDifferent(room, numberOfRowsOfChairs_int, numberOfColumnsOfChairs_int);
+                    int numberOfRowsOfChairsFormatInt = convertNumberOfChairs(numberOfRowsOfChairs);
+                    int numberOfColumnsOfChairsFormatInt = convertNumberOfChairs(numberOfColumnsOfChairs);
+                    String matching = getNotDifferent(room,
+                            numberOfRowsOfChairsFormatInt,
+                            numberOfColumnsOfChairsFormatInt);
                     if (!"all".equals(matching)) {
-                        update(numberOfRowsOfChairs_int, numberOfColumnsOfChairs_int);
+                        update(numberOfRowsOfChairsFormatInt, numberOfColumnsOfChairsFormatInt);
                     }
                     return matching;
                 } else {
@@ -48,7 +54,7 @@ public class UpdateRoomCommand {
                 return badString;
             }
         } else {
-            return permission_error;
+            return permissionError;
         }
     }
 
@@ -57,21 +63,22 @@ public class UpdateRoomCommand {
         if (user != null) {
             if (user.getIsAdmin()) {
                 return true;
-            }
-            else {
-                permission_error = "admin";
+            } else {
+                permissionError = "admin";
                 return false;
             }
-        }
-        else {
-            permission_error = "sign";
+        } else {
+            permissionError = "sign";
             return false;
         }
     }
 
-    private void update(int numberOfRowsOfChairs_int, int numberOfColumnsOfChairs_int) {
+    private void update(int numberOfRowsOfChairsFormatInt, int numberOfColumnsOfChairsFormatInt) {
         roomRepository.delete(room);
-        roomRepository.save(new Room(room.getRoomName(), numberOfRowsOfChairs_int, numberOfColumnsOfChairs_int, room.getComponents()));
+        roomRepository.save(new Room(room.getRoomName(),
+                numberOfRowsOfChairsFormatInt,
+                numberOfColumnsOfChairsFormatInt,
+                room.getComponents()));
     }
 
     private boolean isValid(String roomName) {
@@ -102,15 +109,16 @@ public class UpdateRoomCommand {
         return Integer.parseInt(numberOfChairs);
     }
 
-    private String getNotDifferent(Room room, int numberOfRowsOfChairs_int, int numberOfColumnsOfChairs_int) {
+    private String getNotDifferent(Room room,
+                                   int numberOfRowsOfChairsFormatInt,
+                                   int numberOfColumnsOfChairsFormatInt) {
         String result = emptyString;
-        if(room.getNumberOfRowsOfChairs() == numberOfRowsOfChairs_int) {
+        if (room.getNumberOfRowsOfChairs() == numberOfRowsOfChairsFormatInt) {
             result = "first";
-            if(room.getNumberOfColumnsOfChairs() == numberOfColumnsOfChairs_int) {
+            if (room.getNumberOfColumnsOfChairs() == numberOfColumnsOfChairsFormatInt) {
                 result = "all";
             }
-        }
-        else if(room.getNumberOfRowsOfChairs() == numberOfRowsOfChairs_int) {
+        } else if (room.getNumberOfColumnsOfChairs() == numberOfColumnsOfChairsFormatInt) {
             result = "second";
         }
         return result;

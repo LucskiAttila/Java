@@ -22,8 +22,7 @@ public class SignInCommandHandler {
             return "You successfully signed in with " + username;
         } else if (result.equals("exist")) {
             return "No user with " + username;
-        }
-        else {
+        } else {
             return "Login failed due to incorrect credentials";
         }
     }

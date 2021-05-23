@@ -1,9 +1,18 @@
 package com.epam.training.ticketservice.logic.command.screening;
 
-import com.epam.training.ticketservice.database.entity.*;
-import com.epam.training.ticketservice.database.repository.*;
+import com.epam.training.ticketservice.database.entity.Movie;
+import com.epam.training.ticketservice.database.entity.Room;
+import com.epam.training.ticketservice.database.entity.Screening;
+import com.epam.training.ticketservice.database.entity.PriceComponent;
+import com.epam.training.ticketservice.database.entity.User;
+import com.epam.training.ticketservice.database.repository.RoomRepository;
+import com.epam.training.ticketservice.database.repository.ScreeningRepository;
+import com.epam.training.ticketservice.database.repository.MovieRepository;
+import com.epam.training.ticketservice.database.repository.PriceComponentRepository;
+import com.epam.training.ticketservice.database.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,20 +25,34 @@ public class AttachPriceComponentScreeningCommand {
     @Value("${ATTACH_MORE}")
     private boolean canAttachMore;
 
+    List<PriceComponent> components;
+
     @Value("${DATE_FORMAT_VALID}")
     String dateFormatValid;
+
+    public void setCanAttachMore(boolean canAttachMore) {
+        this.canAttachMore = canAttachMore;
+    }
 
     @Value("${DATE_FORMAT}")
     String dateFormat;
 
-    private String permission_error;
-    private String invalid_error;
+    public void setDateFormatValid(String dateFormatValid) {
+        this.dateFormatValid = dateFormatValid;
+    }
 
-    private Date startsDateTime_date;
+    private String permissionError;
+    private String invalidError;
+
+    private Date startsDateTimeFormatDate;
     private Room room;
     private Movie movie;
     private Screening screening;
     private PriceComponent priceComponent;
+
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
 
     private final RoomRepository roomRepository;
     private final MovieRepository movieRepository;
@@ -37,7 +60,11 @@ public class AttachPriceComponentScreeningCommand {
     private final PriceComponentRepository priceComponentRepository;
     private final UserRepository userRepository;
 
-    public AttachPriceComponentScreeningCommand(RoomRepository roomRepository, MovieRepository movieRepository, ScreeningRepository screeningRepository, PriceComponentRepository priceComponentRepository, UserRepository userRepository) {
+    public AttachPriceComponentScreeningCommand(RoomRepository roomRepository,
+                                                MovieRepository movieRepository,
+                                                ScreeningRepository screeningRepository,
+                                                PriceComponentRepository priceComponentRepository,
+                                                UserRepository userRepository) {
         this.roomRepository = roomRepository;
         this.movieRepository = movieRepository;
         this.screeningRepository = screeningRepository;
@@ -45,6 +72,7 @@ public class AttachPriceComponentScreeningCommand {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public String operate(String name, String title, String roomName, String startsDateTime) {
         if (hasPermission()) {
             if (checkDateFormat(startsDateTime)) {
@@ -52,11 +80,11 @@ public class AttachPriceComponentScreeningCommand {
                     formatDate(startsDateTime);
                     if (checkDateValid(startsDateTime)) {
                         if (isValid()) {
-                            boolean isDuplication = !isComponentValid(name);
+                            boolean isDuplication = isComponentValid(name);
                             if (canAttachMore) {
                                 save();
                                 if (isDuplication) {
-                                    return "ok_duplicate";
+                                    return "okDuplicate";
                                 } else {
                                     return "ok";
                                 }
@@ -75,64 +103,65 @@ public class AttachPriceComponentScreeningCommand {
                         return "invalid";
                     }
                 } else {
-                    return invalid_error;
+                    return invalidError;
                 }
             } else {
                 return "format";
             }
         } else {
-            return permission_error;
+            return permissionError;
         }
     }
 
     private void save() {
-        List<PriceComponent> components = screening.getComponents();
         components.add(priceComponent);
         screeningRepository.delete(screening);
-        screeningRepository.save(new Screening(movie, room, startsDateTime_date, components));
+        screeningRepository.save(new Screening(movie, room, startsDateTimeFormatDate, components));
     }
 
     private boolean isValid() {
-        screening = screeningRepository.findByMovieAndRoomAndStartsDateTime(movie, room, startsDateTime_date);
+        screening = screeningRepository.findByMovieAndRoomAndStartsDateTime(movie, room, startsDateTimeFormatDate);
         return screening != null;
     }
 
     private boolean checkDateValid(String startsDateTime) {
-        return startsDateTime.equals(new SimpleDateFormat(dateFormat).format(startsDateTime_date));
+        return startsDateTime.equals(new SimpleDateFormat(dateFormat).format(startsDateTimeFormatDate));
     }
 
     private void formatDate(String startsDateAndTime) {
         try {
-            startsDateTime_date = new SimpleDateFormat(dateFormat).parse(startsDateAndTime);
+            startsDateTimeFormatDate = new SimpleDateFormat(dateFormat).parse(startsDateAndTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
     private boolean isComponentValid(String name) {
-        for (PriceComponent priceComponent : room.getComponents()) {
-            if (name.equals(priceComponent.getName())) {
-                return false;
+        components = screening.getComponents();
+        int size = components.size();
+        for (int i = 0; i < size; i++) {
+            if (name.equals(components.get(i).getName())) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     private boolean check(String name, String title, String roomName) {
-        invalid_error = "";
+        invalidError = "";
         movie = movieRepository.findByTitle(title);
         room =  roomRepository.findByRoomName(roomName);
         priceComponent = priceComponentRepository.findByName(name);
         if (movie == null) {
-            invalid_error += "movie ";
+            invalidError += "movie ";
         }
         if (room == null) {
-            invalid_error += "room ";
+            invalidError += "room ";
         }
         if (priceComponent == null) {
-            invalid_error += "component ";
+            invalidError += "component ";
         }
-        return invalid_error.equals("");
+        return invalidError.equals("");
     }
 
     private boolean checkDateFormat(String startsDateAndTime) {
@@ -144,14 +173,12 @@ public class AttachPriceComponentScreeningCommand {
         if (user != null) {
             if (user.getIsAdmin()) {
                 return true;
-            }
-            else {
-                permission_error = "admin";
+            } else {
+                permissionError = "admin";
                 return false;
             }
-        }
-        else {
-            permission_error = "sign";
+        } else {
+            permissionError = "sign";
             return false;
         }
     }

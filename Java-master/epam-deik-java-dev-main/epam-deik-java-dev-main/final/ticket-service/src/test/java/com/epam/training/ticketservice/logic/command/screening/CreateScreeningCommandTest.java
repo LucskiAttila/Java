@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CreateScreeningCommandTest {
 
     @Test
-    public void testOperateShouldReturnSignWhenUserAlreadySignedIn() {
+    public void testOperateShouldReturnSignWhenUserNotSignedIn() {
         // Given
         String title = "Title";
         String roomName = "RoomName";
@@ -100,7 +100,7 @@ class CreateScreeningCommandTest {
     }
 
     @Test
-    public void testOperateShouldReturnRoomNameWhenRoomNotExist() {
+    public void testOperateShouldReturnRoomNameWhenRoomAlreadyExist() {
         // Given
         String title = "Title";
         String roomName = "RoomName";
@@ -136,7 +136,7 @@ class CreateScreeningCommandTest {
     }
 
     @Test
-    public void testOperateShouldReturnMovieTitleWhenMovieNotExist() {
+    public void testOperateShouldReturnMovieTitleWhenMovieAlreadyExist() {
         // Given
         String title = "Title";
         String roomName = "RoomName";
@@ -172,7 +172,7 @@ class CreateScreeningCommandTest {
     }
 
     @Test
-    public void testOperateShouldReturnRoomNameAndMovieTitleWhenRoomNameAndMovieNotExist() {
+    public void testOperateShouldReturnRoomNameAndMovieTitleWhenRoomNameAndMovieAlreadyExist() {
         // Given
         String title = "Title";
         String roomName = "RoomName";
@@ -244,7 +244,7 @@ class CreateScreeningCommandTest {
     }
 
     @Test
-    public void testOperateShouldReturnExistWhenScreeningNotValid() throws ParseException {
+    public void testOperateShouldReturnExistWhenScreeningAlreadyExist() throws ParseException {
         // Given
         String title = "Title";
         String roomName = "RoomName";
@@ -379,7 +379,7 @@ class CreateScreeningCommandTest {
         BDDMockito.given(screeningRepository.findByMovieAndRoomAndStartsDateTime(movie, room, new SimpleDateFormat(dateFormat).parse(StartsDateTime))).willReturn(null);
 
         CreateScreeningCommand underTest = new CreateScreeningCommand(screeningRepository, movieRepository, roomRepository, userRepository);
-        underTest.setBreak_time(breakTime);
+        underTest.setBreakTime(breakTime);
 
         // When
         underTest.setDateFormatValid(DateFormatValid);

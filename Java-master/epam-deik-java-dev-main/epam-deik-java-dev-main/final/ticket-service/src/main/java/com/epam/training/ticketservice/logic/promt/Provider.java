@@ -5,7 +5,7 @@ import org.jline.utils.AttributedString;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Provider implements PromptProvider{
+public class Provider implements PromptProvider {
     @Override
     public AttributedString getPrompt() {
         return new AttributedString("Ticket service>");

@@ -15,41 +15,46 @@ public class CreatePriceComponentCommand {
     @Value("${DIGITS}")
     List<Character> digits;
 
+    public void setDigits(List<Character> digits) {
+        this.digits = digits;
+    }
+
     protected final String emptyString = "";
 
     private PriceComponent priceComponent;
 
-    private String permission_error;
-    private String bad_integer;
+    private String permissionError;
+    private String badInteger;
 
     private final PriceComponentRepository priceComponentRepository;
     private final UserRepository userRepository;
 
-    public CreatePriceComponentCommand(PriceComponentRepository priceComponentRepository, UserRepository userRepository) {
+    public CreatePriceComponentCommand(PriceComponentRepository priceComponentRepository,
+                                       UserRepository userRepository) {
         this.priceComponentRepository = priceComponentRepository;
         this.userRepository = userRepository;
     }
 
     public String operate(String name, String price) {
-        if(hasPermission()) {
+        if (hasPermission()) {
             if (isConvert(price)) {
-                if(isValid(name)) {
-                    int price_int = convertToInt(price);
-                    save(name, price_int);
+                if (isValid(name)) {
+                    int priceFormatInt = convertToInt(price);
+                    save(name, priceFormatInt);
                     return "ok";
                 } else {
                     return "exist";
                 }
             } else {
-                return bad_integer;
+                return badInteger;
             }
         } else {
-            return permission_error;
+            return permissionError;
         }
     }
 
-    private void save(String name, int price_int) {
-        priceComponentRepository.save(new PriceComponent(name, price_int));
+    private void save(String name, int priceFormatInt) {
+        priceComponentRepository.save(new PriceComponent(name, priceFormatInt));
     }
 
     private boolean isValid(String name) {
@@ -62,31 +67,29 @@ public class CreatePriceComponentCommand {
         if (user != null) {
             if (user.getIsAdmin()) {
                 return true;
-            }
-            else {
-                permission_error = "admin";
+            } else {
+                permissionError = "admin";
                 return false;
             }
-        }
-        else {
-            permission_error = "sign";
+        } else {
+            permissionError = "sign";
             return false;
         }
     }
 
-    private boolean isConvert(String base_price) {
-        bad_integer = validConvertToInt(base_price);
-        return emptyString.equals(bad_integer);
+    private boolean isConvert(String basePrice) {
+        badInteger = validConvertToInt(basePrice);
+        return emptyString.equals(badInteger);
     }
 
-    private String validConvertToInt(String number_str) {
+    private String validConvertToInt(String numberStr) {
         int index = 0;
-        if (number_str.charAt(0) == '-') {
+        if (numberStr.charAt(0) == '-') {
             index = 1;
         }
-        for (int i = index; i < number_str.length(); i++) {
-            if (!digits.contains(number_str.charAt(i))) {
-                return String.valueOf(number_str.charAt(i));
+        for (int i = index; i < numberStr.length(); i++) {
+            if (!digits.contains(numberStr.charAt(i))) {
+                return String.valueOf(numberStr.charAt(i));
             }
         }
         return emptyString;
